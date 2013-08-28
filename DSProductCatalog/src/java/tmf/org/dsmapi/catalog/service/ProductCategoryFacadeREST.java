@@ -64,11 +64,11 @@ public class ProductCategoryFacadeREST extends AbstractFacade<ProductCategory> {
     @Produces({ "application/json"})
     public ProductCategory proto() {
         ProductCategory pc = new ProductCategory();
-        pc.setDescription(null);
-        pc.setId(null);
+        pc.setDescription("description");
+        pc.setId("id");
         pc.setIsRoot(Boolean.TRUE);
-        pc.setName(null);
-        pc.setParentId(null);
+        pc.setName("name");
+        
         return pc;
     }
 

@@ -42,7 +42,7 @@ public class ProductCategory implements Serializable {
         this.id = id;
     }
     
-    String parentId;
+    String parentHRef;
     
     Boolean isRoot;
     
@@ -50,13 +50,15 @@ public class ProductCategory implements Serializable {
     
     String description;
 
-    public String getParentId() {
-        return parentId;
+    public String getParentHRef() {
+        return parentHRef;
     }
 
-    public void setParentId(String parentId) {
-        this.parentId = parentId;
+    public void setParentHRef(String parentHRef) {
+        this.parentHRef = parentHRef;
     }
+
+   
 
     public Boolean getIsRoot() {
         return isRoot;
