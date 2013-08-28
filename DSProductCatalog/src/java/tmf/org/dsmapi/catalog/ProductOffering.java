@@ -97,13 +97,13 @@ public class ProductOffering implements Serializable {
     
     TimeRange validFor;
     
-    Info[] productCategory;
+    RefInfo[] productCategory;
     
-    Info productSpecification; 
+    RefInfo productSpecification; 
     
-    ProductOfferingPrice[] productOfferingPrice;
+    ProductOfferingPrice[] productOfferingPrices;
     
-    Info[] bundledProductOffering;
+    RefInfo[] bundledProductOffering;
 
     public void setName(String name) {
         this.name = name;
@@ -121,19 +121,19 @@ public class ProductOffering implements Serializable {
         this.validFor = validFor;
     }
 
-    public void setProductCategory(Info[] productCategory) {
+    public void setProductCategory(RefInfo[] productCategory) {
         this.productCategory = productCategory;
     }
 
-    public void setProductSpecification(Info productSpecification) {
+    public void setProductSpecification(RefInfo productSpecification) {
         this.productSpecification = productSpecification;
     }
 
-    public void setProductOfferingPrice(ProductOfferingPrice[] productOfferingPrice) {
-        this.productOfferingPrice = productOfferingPrice;
+    public void setProductOfferingPrice(ProductOfferingPrice[] productOfferingPrices) {
+        this.productOfferingPrices = productOfferingPrices;
     }
 
-    public void setBundledProductOffering(Info[] bundledProductOffering) {
+    public void setBundledProductOffering(RefInfo[] bundledProductOffering) {
         this.bundledProductOffering = bundledProductOffering;
     }
 
@@ -157,19 +157,19 @@ public class ProductOffering implements Serializable {
         return validFor;
     }
 
-    public Info[] getProductCategory() {
+    public RefInfo[] getProductCategory() {
         return productCategory;
     }
 
-    public Info getProductSpecification() {
+    public RefInfo getProductSpecification() {
         return productSpecification;
     }
 
     public ProductOfferingPrice[] getProductOfferingPrice() {
-        return productOfferingPrice;
+        return productOfferingPrices;
     }
 
-    public Info[] getBundledProductOffering() {
+    public RefInfo[] getBundledProductOffering() {
         return bundledProductOffering;
     }
 
@@ -210,7 +210,7 @@ public class ProductOffering implements Serializable {
         if (this.productSpecification != other.productSpecification && (this.productSpecification == null || !this.productSpecification.equals(other.productSpecification))) {
             return false;
         }
-        if (!Arrays.deepEquals(this.productOfferingPrice, other.productOfferingPrice)) {
+        if (!Arrays.deepEquals(this.productOfferingPrices, other.productOfferingPrices)) {
             return false;
         }
         if (!Arrays.deepEquals(this.bundledProductOffering, other.bundledProductOffering)) {
@@ -227,7 +227,7 @@ public class ProductOffering implements Serializable {
 
     @Override
     public String toString() {
-        return "ProductOffering{" + "id=" + id + ", name=" + name + ", description=" + description + ", isBundle=" + isBundle + ", validFor=" + validFor + ", productCategory=" + productCategory + ", productSpecification=" + productSpecification + ", productOfferingPrice=" + productOfferingPrice + ", bundledProductOffering=" + bundledProductOffering + '}';
+        return "ProductOffering{" + "id=" + id + ", name=" + name + ", description=" + description + ", isBundle=" + isBundle + ", validFor=" + validFor + ", productCategory=" + productCategory + ", productSpecification=" + productSpecification + ", productOfferingPrices=" + productOfferingPrices + ", bundledProductOffering=" + bundledProductOffering + '}';
     }
 
    

@@ -10,21 +10,19 @@ import java.io.Serializable;
  *
  * @author pierregauthier
  */
-public class Info implements Serializable {
+public class RefInfo implements Serializable {
     
-    String id;
+    String href;
     String name;
     String description;
 
-    public String getId() {
-        return id;
+    public String getHref() {
+        return href;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setHref(String href) {
+        this.href = href;
     }
-
-   
 
     public String getName() {
         return name;
