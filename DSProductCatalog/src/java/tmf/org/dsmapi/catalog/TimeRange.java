@@ -5,29 +5,38 @@
 package tmf.org.dsmapi.catalog;
 
 import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Embeddable;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
  *
  * @author pierregauthier
  */
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@Embeddable
 public class TimeRange implements Serializable {
     
-    private String startDateTime;
-    private String endDateTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date startDateTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date endDateTime;
 
-    public String getStartDateTime() {
+    public Date getStartDateTime() {
         return startDateTime;
     }
 
-    public void setStartDateTime(String startDateTime) {
+    public void setStartDateTime(Date startDateTime) {
         this.startDateTime = startDateTime;
     }
 
-    public String getEndDateTime() {
+    public Date getEndDateTime() {
         return endDateTime;
     }
 
-    public void setEndDateTime(String endDateTime) {
+    public void setEndDateTime(Date endDateTime) {
         this.endDateTime = endDateTime;
     }
     

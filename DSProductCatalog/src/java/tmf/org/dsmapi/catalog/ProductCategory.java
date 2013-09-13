@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
  *
@@ -25,11 +26,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class ProductCategory implements Serializable {
     private static final Logger LOG = Logger.getLogger(ProductCategory.class.getName());
     
-    
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
@@ -49,7 +51,7 @@ public class ProductCategory implements Serializable {
     String name;
     
     String description;
-
+    
     public String getParentHRef() {
         return parentHRef;
     }

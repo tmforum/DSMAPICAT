@@ -6,6 +6,7 @@ package org.netbeans.rest.application.config;
 
 import java.util.Set;
 import javax.ws.rs.core.Application;
+import tmf.org.dsmapi.catalog.service.JacksonConfigurator;
 
 /**
  *
@@ -27,6 +28,7 @@ public class ApplicationConfig extends Application {
         resources.add(tmf.org.dsmapi.catalog.service.ProductSpecificationFacadeREST.class);
         resources.add(tmf.org.dsmapi.catalog.service.ProductCategoryFacadeREST.class);
         resources.add(tmf.org.dsmapi.catalog.service.ProductOfferingFacadeREST.class);
+        resources.add(JacksonConfigurator.class);
         try {
             Class<?> jacksonProvider = Class.forName("org.codehaus.jackson.jaxrs.JacksonJsonProvider");
             resources.add(jacksonProvider);

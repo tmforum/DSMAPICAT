@@ -6,11 +6,16 @@ package tmf.org.dsmapi.catalog;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
  *
@@ -75,11 +80,40 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class ProductOffering implements Serializable {
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
+
+    String name;
+    
+    String description;
+    
+    Boolean isBundle;
+    
+    @Embedded
+    @AttributeOverrides( {
+            @AttributeOverride(name="startDateTime", column = @Column(name="validForStart") ),
+            @AttributeOverride(name="endDateTime", column = @Column(name="validForEnd") )
+    } )
+    TimeRange validFor;
+    
+    RefInfo[] productCategories;
+    
+    @Embedded
+    @AttributeOverrides( {
+            @AttributeOverride(name="name", column = @Column(name="productSpecName") ),
+            @AttributeOverride(name="description", column = @Column(name="productSpecDesc") ),
+            @AttributeOverride(name="href", column = @Column(name="productSpecHref") )
+    } )
+    RefInfo productSpecification; 
+    
+    ProductOfferingPrice[] productOfferingPrices;
+    
+    RefInfo[] bundledProductOfferings;
 
     public String getId() {
         return id;
@@ -113,22 +147,6 @@ public class ProductOffering implements Serializable {
         this.id = id;
     }
     
-    String name;
-    
-    String description;
-    
-    Boolean isBundle;
-    
-    TimeRange validFor;
-    
-    RefInfo[] productCategories;
-    
-    RefInfo productSpecification; 
-    
-    ProductOfferingPrice[] productOfferingPrices;
-    
-    RefInfo[] bundledProductOfferings;
-
     public void setName(String name) {
         this.name = name;
     }
@@ -143,10 +161,6 @@ public class ProductOffering implements Serializable {
 
     public void setValidFor(TimeRange validFor) {
         this.validFor = validFor;
-    }
-
-    public void setProductCategory(RefInfo[] productCategories) {
-        this.productCategories = productCategories;
     }
 
     public void setProductSpecification(RefInfo productSpecification) {
@@ -181,6 +195,9 @@ public class ProductOffering implements Serializable {
         return validFor;
     }
 
+    public RefInfo getProductSpecification() {
+        return productSpecification;
+    }
 
     public ProductOfferingPrice[] getProductOfferingPrice() {
         return productOfferingPrices;
