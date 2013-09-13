@@ -6,14 +6,19 @@ package tmf.org.dsmapi.catalog;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
@@ -101,7 +106,11 @@ public class ProductOffering implements Serializable {
     } )
     TimeRange validFor;
     
-    RefInfo[] productCategories;
+  @ElementCollection
+  @CollectionTable(
+        name="REFINFO",
+        joinColumns=@JoinColumn(name="PRODUCT_OFFERING_ID")
+  )    Set<RefInfo> productCategories;
     
     @Embedded
     @AttributeOverrides( {
@@ -120,11 +129,14 @@ public class ProductOffering implements Serializable {
     }
 
     public RefInfo[] getProductCategories() {
-        return productCategories;
+        if (productCategories == null) return null;
+        return productCategories.toArray(new RefInfo[productCategories.size()]);
     }
 
     public void setProductCategories(RefInfo[] productCategories) {
-        this.productCategories = productCategories;
+        if (this.productCategories == null) this.productCategories = new HashSet<RefInfo>();
+        this.productCategories.clear();
+        this.productCategories.addAll(Arrays.asList(productCategories));
     }
 
     public ProductOfferingPrice[] getProductOfferingPrices() {
@@ -234,9 +246,9 @@ public class ProductOffering implements Serializable {
         if (this.validFor != other.validFor && (this.validFor == null || !this.validFor.equals(other.validFor))) {
             return false;
         }
-        if (!Arrays.deepEquals(this.productCategories, other.productCategories)) {
-            return false;
-        }
+//        if (!Arrays.deepEquals(this.productCategories, other.productCategories)) {
+  //          return false;
+    //    }
         if (this.productSpecification != other.productSpecification && (this.productSpecification == null || !this.productSpecification.equals(other.productSpecification))) {
             return false;
         }

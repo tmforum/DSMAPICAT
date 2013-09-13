@@ -5,12 +5,14 @@
 package tmf.org.dsmapi.catalog.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
@@ -22,6 +24,7 @@ import javax.ws.rs.core.MultivaluedMap;
  * @author pierregauthier
  */
 public abstract class AbstractFacade<T> {
+
     private Class<T> entityClass;
 
     public AbstractFacade(Class<T> entityClass) {
@@ -82,7 +85,7 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-    
+
     public List<T> findAllWithFields(Set<String> fieldNames) {
         List<T> list = findAll();
         return getViewList(list, fieldNames);
@@ -101,12 +104,14 @@ public abstract class AbstractFacade<T> {
         }
         return resultList;
     }
+
     protected abstract T getView(T fullElement, Set<String> fieldNames);
 
     public List<T> findByCriteria(MultivaluedMap<String, String> map, Class<T> clazz) {
         List<T> resultsList = null;
         Iterator<Map.Entry<String, List<String>>> it = map.entrySet().iterator();
-        CriteriaQuery<T> cq = getEntityManager().getCriteriaBuilder().createQuery(clazz);
+        CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<T> cq = criteriaBuilder.createQuery(clazz);
         List<Predicate> andPredicates = new ArrayList<Predicate>();
         Root<T> tt = cq.from(clazz);
         //adding multiple &
@@ -116,16 +121,24 @@ public abstract class AbstractFacade<T> {
         //use Map as Entry
         //Predicate predicate = cb.equal(tt.get(name), Severity.valueOf(value));
 
-        String attName = null;
-        List<String> value = null;
-
         while (it.hasNext()) {
             Map.Entry<String, List<String>> sv = it.next();
             System.out.println(sv.getKey());
             System.out.println(sv.getValue());
             if (!sv.getKey().equals("timestamp")) //bug with netbeans test tool
             {
-                Predicate predicate = buildPredicate(tt, sv.getKey(), sv.getValue().get(0));
+                Predicate predicate = null;
+                List<String> valueList = convertMultipleParameters(sv.getValue());
+                if (valueList.size() > 1) {
+                    List<Predicate> orPredicates = new ArrayList<Predicate>();
+                    for (String currentValue : valueList) {
+                        Predicate orPredicate = buildPredicate(tt, sv.getKey(), currentValue);
+                        orPredicates.add(orPredicate);
+                    }
+                    predicate = criteriaBuilder.or(orPredicates.toArray(new Predicate[orPredicates.size()]));
+                } else {
+                    predicate = buildPredicate(tt, sv.getKey(), valueList.get(0));
+                }
                 andPredicates.add(predicate);
             }
         }
@@ -145,19 +158,29 @@ public abstract class AbstractFacade<T> {
         int index = name.indexOf('.');
         boolean isNestedField = index > 0 && index < name.length();
         if (isNestedField) {
-        String rootFieldName = name.substring(0, index);
-        String subFieldName = name.substring(index + 1);
-        
-        Path<T> root = tt.get(rootFieldName);
-        
-        predicate = buildPredicate(root, subFieldName, value);
-        
+            String rootFieldName = name.substring(0, index);
+            String subFieldName = name.substring(index + 1);
+
+            Path<T> root = tt.get(rootFieldName);
+
+            predicate = buildPredicate(root, subFieldName, value);
+
         } else {
             predicate = getEntityManager().getCriteriaBuilder().equal(tt.get(name), value);
         }
         return predicate;
     }
 
-
-    
+    private static List<String> convertMultipleParameters(List<String> valueList) {
+        List<String> newValueList = new ArrayList<String>();
+        for (String value : valueList) {
+            if (value.startsWith("(") && value.endsWith(")")) {
+                String[] tokenArray = value.substring(1, value.length() - 1).split(";");
+                newValueList.addAll(Arrays.asList(tokenArray));
+            } else {
+                newValueList.add(value);
+            }
+        }
+        return newValueList;
+    }
 }
