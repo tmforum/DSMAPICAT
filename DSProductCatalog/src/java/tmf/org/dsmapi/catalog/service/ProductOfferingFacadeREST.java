@@ -6,6 +6,8 @@ package tmf.org.dsmapi.catalog.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.EJB;
@@ -84,7 +86,7 @@ public class ProductOfferingFacadeREST {
         // fields to filter view
         Set<String> fieldSet = FacadeRestUtil.getFieldSet(criteria);
 
-        List<ProductOffering> resultList = findByCriteria(criteria);
+        Set<ProductOffering> resultList = findByCriteria(criteria);
 
         Response response;
         if (fieldSet.isEmpty() || fieldSet.contains(FacadeRestUtil.ALL_FIELDS)) {
@@ -101,14 +103,17 @@ public class ProductOfferingFacadeREST {
         return response;
     }
 
-    private List<ProductOffering> findByCriteria(MultivaluedMap<String, String> criteria) {
+    private Set<ProductOffering> findByCriteria(MultivaluedMap<String, String> criteria) {
         List<ProductOffering> resultList = null;
         if (criteria != null && !criteria.isEmpty()) {
             resultList = manager.findByCriteria(criteria, ProductOffering.class);
         } else {
             resultList = manager.findAll();
         }
-        return resultList;
+        if (resultList == null)
+            return null;
+        else 
+            return new LinkedHashSet<ProductOffering>(resultList);
     }
 
     @GET

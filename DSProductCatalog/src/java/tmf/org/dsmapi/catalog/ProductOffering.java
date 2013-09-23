@@ -24,104 +24,69 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
  *
- * {"productOffering": {
-    "id": “http://serverlocation:port/catalogManagement/productOffering/42",
-    "name": "Virtual Storage Medium",
-    "description": "Virtual Storage Medium",
-    "isBundle": "false",
-    "productCategories": [{
-        "id": “http://serverlocation:port/catalogManagement/productCategory/12",
-        "name": "Cloud offerings",
-        "description": "A group of cloud service offerings"
-    }],
-    "validFor": {
-        "startDateTime": "2013-04-19T16:42:23-04:00",
-        "endDateTime": "2013-06-19T00:00:00-04:00"
-    },
-    "productSpecification": {
-        "id": “http://serverlocation:port/catalogManagement/productSpecification/13",
-        "name": "specification 1",
-        "description": "description 1"
-    },
-    "productOfferingPrice": [
-        {
-            "name": "Monthly Price",
-            "description": "monthlyprice",
-            "validFor": {
-                "startDateTime": "2013-04-19T16:42:23-04:00",
-                "endDateTime": "2013-06-19T00:00:00-04:00"
-            },
-            "priceType": "recurring",
-            "unitOfMeasure": "",
-            "price": {
-                "amount": "12",
-                "currency": "$"
-            },
-            "recurringChargePeriod": "monthly"
-        },
-        {
-            "name": "Usage Price",
-            "description": "usageprice",
-            "validFor": {
-                "startDateTime": "2013-04-19T16:42:23-04:00",
-                "endDateTime": "2013-06-19T00:00:00-04:00"
-            },
-            "priceType": "usage",
-            "unitOfMeasure": "second",
-            "price": {
-                "amount": "12",
-                "currency": "$"
-            },
-            "recurringChargePeriod": ""
-        }
-    ],
-    "bundledProductOfferings": {"productOffering": [
-        "id": “http://serverlocation:port/catalogManagement/productOffering/15",
-        "name": "Offering 1",
-        "description": "description 1"
-    ]}
-}}
+ * {"productOffering": { "id":
+ * “http://serverlocation:port/catalogManagement/productOffering/42", "name":
+ * "Virtual Storage Medium", "description": "Virtual Storage Medium",
+ * "isBundle": "false", "productCategories": [{ "id":
+ * “http://serverlocation:port/catalogManagement/productCategory/12", "name":
+ * "Cloud offerings", "description": "A group of cloud service offerings" }],
+ * "validFor": { "startDateTime": "2013-04-19T16:42:23-04:00", "endDateTime":
+ * "2013-06-19T00:00:00-04:00" }, "productSpecification": { "id":
+ * “http://serverlocation:port/catalogManagement/productSpecification/13",
+ * "name": "specification 1", "description": "description 1" },
+ * "productOfferingPrice": [ { "name": "Monthly Price", "description":
+ * "monthlyprice", "validFor": { "startDateTime": "2013-04-19T16:42:23-04:00",
+ * "endDateTime": "2013-06-19T00:00:00-04:00" }, "priceType": "recurring",
+ * "unitOfMeasure": "", "price": { "amount": "12", "currency": "$" },
+ * "recurringChargePeriod": "monthly" }, { "name": "Usage Price", "description":
+ * "usageprice", "validFor": { "startDateTime": "2013-04-19T16:42:23-04:00",
+ * "endDateTime": "2013-06-19T00:00:00-04:00" }, "priceType": "usage",
+ * "unitOfMeasure": "second", "price": { "amount": "12", "currency": "$" },
+ * "recurringChargePeriod": "" } ], "bundledProductOfferings":
+ * {"productOffering": [ "id":
+ * “http://serverlocation:port/catalogManagement/productOffering/15", "name":
+ * "Offering 1", "description": "description 1" ]} }}
+ *
  * @author pierregauthier
  */
 @Entity
 @XmlRootElement
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class ProductOffering implements Serializable {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
-
     String name;
-    
     String description;
-    
     Boolean isBundle;
-    
     @Embedded
-    @AttributeOverrides( {
-            @AttributeOverride(name="startDateTime", column = @Column(name="validForStart") ),
-            @AttributeOverride(name="endDateTime", column = @Column(name="validForEnd") )
-    } )
+    @AttributeOverrides({
+        @AttributeOverride(name = "startDateTime", column =
+                @Column(name = "validForStart")),
+        @AttributeOverride(name = "endDateTime", column =
+                @Column(name = "validForEnd"))
+    })
     TimeRange validFor;
     
-  @ElementCollection
-  @CollectionTable(
-        name="REFINFO",
-        joinColumns=@JoinColumn(name="PRODUCT_OFFERING_ID")
-  )    Set<RefInfo> productCategories;
-    
+    @ElementCollection
+    @CollectionTable(
+            name = "REFINFO",
+            joinColumns =
+            @JoinColumn(name = "PRODUCT_OFFERING_ID"))
+    Set<RefInfo> productCategories;
     @Embedded
-    @AttributeOverrides( {
-            @AttributeOverride(name="name", column = @Column(name="productSpecName") ),
-            @AttributeOverride(name="description", column = @Column(name="productSpecDesc") ),
-            @AttributeOverride(name="href", column = @Column(name="productSpecHref") )
-    } )
-    RefInfo productSpecification; 
-    
+    @AttributeOverrides({
+        @AttributeOverride(name = "name", column =
+                @Column(name = "productSpecName")),
+        @AttributeOverride(name = "description", column =
+                @Column(name = "productSpecDesc")),
+        @AttributeOverride(name = "href", column =
+                @Column(name = "productSpecHref"))
+    })
+    RefInfo productSpecification;
     ProductOfferingPrice[] productOfferingPrices;
-    
     RefInfo[] bundledProductOfferings;
 
     public String getId() {
@@ -129,12 +94,16 @@ public class ProductOffering implements Serializable {
     }
 
     public RefInfo[] getProductCategories() {
-        if (productCategories == null) return null;
+        if (productCategories == null) {
+            return null;
+        }
         return productCategories.toArray(new RefInfo[productCategories.size()]);
     }
 
     public void setProductCategories(RefInfo[] productCategories) {
-        if (this.productCategories == null) this.productCategories = new HashSet<RefInfo>();
+        if (this.productCategories == null) {
+            this.productCategories = new HashSet<RefInfo>();
+        }
         this.productCategories.clear();
         this.productCategories.addAll(Arrays.asList(productCategories));
     }
@@ -158,7 +127,7 @@ public class ProductOffering implements Serializable {
     public void setId(String id) {
         this.id = id;
     }
-    
+
     public void setName(String name) {
         this.name = name;
     }
@@ -247,8 +216,8 @@ public class ProductOffering implements Serializable {
             return false;
         }
 //        if (!Arrays.deepEquals(this.productCategories, other.productCategories)) {
-  //          return false;
-    //    }
+        //          return false;
+        //    }
         if (this.productSpecification != other.productSpecification && (this.productSpecification == null || !this.productSpecification.equals(other.productSpecification))) {
             return false;
         }
@@ -260,18 +229,9 @@ public class ProductOffering implements Serializable {
         }
         return true;
     }
-  
-
-   
-
-   
-    
 
     @Override
     public String toString() {
         return "ProductOffering{" + "id=" + id + ", name=" + name + ", description=" + description + ", isBundle=" + isBundle + ", validFor=" + validFor + ", productCategories=" + productCategories + ", productSpecification=" + productSpecification + ", productOfferingPrices=" + productOfferingPrices + ", bundledProductOffering=" + bundledProductOfferings + '}';
     }
-
-   
-    
 }
