@@ -6,8 +6,7 @@ package tmf.org.dsmapi.catalog;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.CollectionTable;
@@ -61,6 +60,7 @@ public class ProductOffering implements Serializable {
     String name;
     String description;
     Boolean isBundle;
+
     @Embedded
     @AttributeOverrides({
         @AttributeOverride(name = "startDateTime", column =
@@ -72,10 +72,11 @@ public class ProductOffering implements Serializable {
     
     @ElementCollection
     @CollectionTable(
-            name = "REFINFO",
+            name = "PO_PRODUCT_CATEGORY_REF",
             joinColumns =
             @JoinColumn(name = "PRODUCT_OFFERING_ID"))
-    Set<RefInfo> productCategories;
+    List<RefInfo> productCategories;
+
     @Embedded
     @AttributeOverrides({
         @AttributeOverride(name = "name", column =
@@ -86,41 +87,57 @@ public class ProductOffering implements Serializable {
                 @Column(name = "productSpecHref"))
     })
     RefInfo productSpecification;
-    ProductOfferingPrice[] productOfferingPrices;
-    RefInfo[] bundledProductOfferings;
+
+    @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name = "name", column =
+                @Column(name = "slaSpecName")),
+        @AttributeOverride(name = "description", column =
+                @Column(name = "slaSpecDesc")),
+        @AttributeOverride(name = "href", column =
+                @Column(name = "slaHref"))
+    })
+    private RefInfo sla;
+
+    @ElementCollection
+    @CollectionTable(
+            name = "PO_PRODUCT_OFFERING_PRICE",
+            joinColumns =
+            @JoinColumn(name = "PRODUCT_OFFERING_ID"))
+    List<ProductOfferingPrice> productOfferingPrices;
+
+    @ElementCollection
+    @CollectionTable(
+            name = "PO_BUNDLED_PO_REF",
+            joinColumns =
+            @JoinColumn(name = "PRODUCT_OFFERING_ID"))
+    List<RefInfo> bundledProductOfferings;
 
     public String getId() {
         return id;
     }
 
-    public RefInfo[] getProductCategories() {
-        if (productCategories == null) {
-            return null;
-        }
-        return productCategories.toArray(new RefInfo[productCategories.size()]);
+    public List<RefInfo> getProductCategories() {
+        return productCategories;
     }
 
-    public void setProductCategories(RefInfo[] productCategories) {
-        if (this.productCategories == null) {
-            this.productCategories = new HashSet<RefInfo>();
-        }
-        this.productCategories.clear();
-        this.productCategories.addAll(Arrays.asList(productCategories));
+    public void setProductCategories(List<RefInfo> productCategories) {
+        this.productCategories = productCategories;
     }
 
-    public ProductOfferingPrice[] getProductOfferingPrices() {
+    public List<ProductOfferingPrice> getProductOfferingPrices() {
         return productOfferingPrices;
     }
 
-    public void setProductOfferingPrices(ProductOfferingPrice[] productOfferingPrices) {
+    public void setProductOfferingPrices(List<ProductOfferingPrice> productOfferingPrices) {
         this.productOfferingPrices = productOfferingPrices;
     }
 
-    public RefInfo[] getBundledProductOfferings() {
+    public List<RefInfo> getBundledProductOfferings() {
         return bundledProductOfferings;
     }
 
-    public void setBundledProductOfferings(RefInfo[] bundledProductOfferings) {
+    public void setBundledProductOfferings(List<RefInfo> bundledProductOfferings) {
         this.bundledProductOfferings = bundledProductOfferings;
     }
 
@@ -148,14 +165,6 @@ public class ProductOffering implements Serializable {
         this.productSpecification = productSpecification;
     }
 
-    public void setProductOfferingPrice(ProductOfferingPrice[] productOfferingPrices) {
-        this.productOfferingPrices = productOfferingPrices;
-    }
-
-    public void setBundledProductOffering(RefInfo[] bundledProductOfferings) {
-        this.bundledProductOfferings = bundledProductOfferings;
-    }
-
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
@@ -180,10 +189,22 @@ public class ProductOffering implements Serializable {
         return productSpecification;
     }
 
-    public ProductOfferingPrice[] getProductOfferingPrice() {
-        return productOfferingPrices;
+    
+    /**
+     * @return the sla
+     */
+    public RefInfo getSla() {
+        return sla;
     }
 
+    /**
+     * @param sla the sla to set
+     */
+    public void setSla(RefInfo sla) {
+        this.sla = sla;
+    }
+    
+    
     @Override
     public int hashCode() {
         int hash = 3;
@@ -215,23 +236,28 @@ public class ProductOffering implements Serializable {
         if (this.validFor != other.validFor && (this.validFor == null || !this.validFor.equals(other.validFor))) {
             return false;
         }
-//        if (!Arrays.deepEquals(this.productCategories, other.productCategories)) {
-        //          return false;
-        //    }
+        if (this.sla != other.sla && (this.sla == null || !this.sla.equals(other.sla))) {
+            return false;
+        }
         if (this.productSpecification != other.productSpecification && (this.productSpecification == null || !this.productSpecification.equals(other.productSpecification))) {
             return false;
         }
-        if (!Arrays.deepEquals(this.productOfferingPrices, other.productOfferingPrices)) {
+        if (this.productCategories != other.productCategories && (this.productCategories == null || !this.productCategories.equals(other.productCategories))) {
             return false;
         }
-        if (!Arrays.deepEquals(this.bundledProductOfferings, other.bundledProductOfferings)) {
+        if (this.productOfferingPrices != other.productOfferingPrices && (this.productOfferingPrices == null || !this.productOfferingPrices.equals(other.productOfferingPrices))) {
             return false;
         }
+        if (this.bundledProductOfferings != other.bundledProductOfferings && (this.bundledProductOfferings == null || !this.bundledProductOfferings.equals(other.bundledProductOfferings))) {
+            return false;
+        }
+        
         return true;
     }
 
     @Override
     public String toString() {
-        return "ProductOffering{" + "id=" + id + ", name=" + name + ", description=" + description + ", isBundle=" + isBundle + ", validFor=" + validFor + ", productCategories=" + productCategories + ", productSpecification=" + productSpecification + ", productOfferingPrices=" + productOfferingPrices + ", bundledProductOffering=" + bundledProductOfferings + '}';
+        return "ProductOffering{" + "id=" + id + ", name=" + name + ", description=" + description + ", isBundle=" + isBundle + ", validFor=" + validFor + ", productCategories=" + productCategories + ", productSpecification=" + productSpecification+ ", sla=" + sla + ", productOfferingPrices=" + productOfferingPrices + ", bundledProductOffering=" + bundledProductOfferings + '}';
     }
+
 }

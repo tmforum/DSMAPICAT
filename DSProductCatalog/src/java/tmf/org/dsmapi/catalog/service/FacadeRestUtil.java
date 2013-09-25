@@ -6,6 +6,7 @@ package tmf.org.dsmapi.catalog.service;
 
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -35,6 +36,15 @@ public class FacadeRestUtil {
     public static ObjectNode createNodeViewWithFields(Object bean, Set<String> fieldNames) {
         ObjectMapper mapper = new ObjectMapper();
         return createNodeViewWithFields(mapper, bean, fieldNames);
+    }
+
+    public static List<ObjectNode> createNodeListViewWithFields(Collection list, Set<String> fieldNames) {
+        List<ObjectNode> nodeList = new ArrayList<ObjectNode>();
+        for (Object element : list) {
+            ObjectNode node = FacadeRestUtil.createNodeViewWithFields(element, fieldNames);
+            nodeList.add(node);
+        }
+        return nodeList;
     }
 
     private static ObjectNode createNodeViewWithFields(ObjectMapper mapper, Object bean, Set<String> fieldNames) {

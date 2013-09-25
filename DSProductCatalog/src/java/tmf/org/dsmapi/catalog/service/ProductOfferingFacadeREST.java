@@ -4,9 +4,8 @@
  */
 package tmf.org.dsmapi.catalog.service;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,6 +28,7 @@ import tmf.org.dsmapi.catalog.Price;
 import tmf.org.dsmapi.catalog.RefInfo;
 import tmf.org.dsmapi.catalog.ProductOffering;
 import tmf.org.dsmapi.catalog.ProductOfferingPrice;
+import tmf.org.dsmapi.catalog.Report;
 import tmf.org.dsmapi.catalog.TimeRange;
 
 /**
@@ -71,12 +71,6 @@ public class ProductOfferingFacadeREST {
         return response;
     }
 
-    @DELETE
-    @Path("{id}")
-    public void remove(@PathParam("id") String id) {
-        manager.remove(manager.find(id));
-    }
-
     @GET
     @Produces({"application/json"})
     public Response findByCriteriaWithFields(@Context UriInfo info) {
@@ -93,16 +87,13 @@ public class ProductOfferingFacadeREST {
             response = Response.ok(resultList).build();
         } else {
             fieldSet.add(FacadeRestUtil.ID_FIELD);
-            List<ObjectNode> nodeList = new ArrayList<ObjectNode>();
-            for (ProductOffering productOffering : resultList) {
-                ObjectNode node = FacadeRestUtil.createNodeViewWithFields(productOffering, fieldSet);
-                nodeList.add(node);
-            }
+            List<ObjectNode> nodeList = FacadeRestUtil.createNodeListViewWithFields(resultList, fieldSet);
             response = Response.ok(nodeList).build();
         }
         return response;
     }
 
+    // return Set of unique elements to avoid List with same elements in case of join
     private Set<ProductOffering> findByCriteria(MultivaluedMap<String, String> criteria) {
         List<ProductOffering> resultList = null;
         if (criteria != null && !criteria.isEmpty()) {
@@ -110,22 +101,22 @@ public class ProductOfferingFacadeREST {
         } else {
             resultList = manager.findAll();
         }
-        if (resultList == null)
+        if (resultList == null) {
             return null;
-        else 
+        } else {
             return new LinkedHashSet<ProductOffering>(resultList);
+        }
     }
 
     @GET
     @Path("{id}")
     @Produces({"application/json"})
-    public Response findWithFields(@PathParam("id") String id, @Context UriInfo info) {
+    public Response findById(@PathParam("id") String id, @Context UriInfo info) {
         // fields to filter view
         Set<String> fieldSet = FacadeRestUtil.getFieldSet(info.getQueryParameters());
 
         ProductOffering p = manager.find(id);
         Response response;
-        // if troubleTicket exists
         if (p != null) {
             // 200
             if (fieldSet.isEmpty() || fieldSet.contains(FacadeRestUtil.ALL_FIELDS)) {
@@ -142,11 +133,56 @@ public class ProductOfferingFacadeREST {
         return response;
     }
 
+    @DELETE
+    @Path("{id}")
+    public void remove(@PathParam("id") String id) {
+        manager.remove(manager.find(id));
+    }
+
     @GET
-    @Path("count")
+    @Path("admin/count")
     @Produces("text/plain")
     public String countREST() {
         return String.valueOf(manager.count());
+    }
+
+    @POST
+    @Path("admin")
+    @Consumes({"application/json"})
+    @Produces({"application/json"})
+    public Response createList(List<ProductOffering> entities) {
+        
+        if (entities==null) return Response.status(Response.Status.BAD_REQUEST.getStatusCode()).build(); 
+
+        int previousRows = manager.count();
+        int affectedRows;
+
+        affectedRows = manager.create(entities);
+
+        Report stat = new Report(manager.count());
+        stat.setAffectedRows(affectedRows);
+        stat.setPreviousRows(previousRows);
+
+        // 201 OK
+        return Response.created(null).
+                entity(stat).
+                build();
+    }
+
+    @DELETE
+    @Path("admin")
+    public Report deleteAll() {
+
+        int previousRows = manager.count();
+        manager.removeAll();
+        int currentRows = manager.count();
+        int affectedRows = previousRows-currentRows;
+
+        Report stat = new Report(currentRows);
+        stat.setAffectedRows(affectedRows);
+        stat.setPreviousRows(previousRows);
+
+        return stat;
     }
 
     @GET
@@ -162,7 +198,7 @@ public class ProductOfferingFacadeREST {
         refInfo.setName("name");
         bundledProductOffering[0] = refInfo;
 
-        po.setBundledProductOffering(bundledProductOffering);
+        po.setBundledProductOfferings(Arrays.asList(bundledProductOffering));
         po.setDescription("desc");
         po.setId("id");
         po.setIsBundle(Boolean.TRUE);
@@ -176,7 +212,7 @@ public class ProductOfferingFacadeREST {
         vf.setEndDateTime(new Date());
         vf.setStartDateTime(new Date());
 
-        po.setProductCategories(productCategory);
+        po.setProductCategories(Arrays.asList(productCategory));
 
         ProductOfferingPrice[] productOfferingPrices = new ProductOfferingPrice[1];
         ProductOfferingPrice pop = new ProductOfferingPrice();
@@ -192,7 +228,7 @@ public class ProductOfferingFacadeREST {
         pop.setValidFor(vf);
 
         productOfferingPrices[0] = pop;
-        po.setProductOfferingPrice(productOfferingPrices);
+        po.setProductOfferingPrices(Arrays.asList(productOfferingPrices));
 
         po.setProductSpecification(refInfo);
 

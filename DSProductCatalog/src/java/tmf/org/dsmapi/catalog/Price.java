@@ -6,6 +6,8 @@ package tmf.org.dsmapi.catalog;
 
 import java.io.Serializable;
 import java.util.logging.Logger;
+import javax.persistence.Embeddable;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
  * "price": {
@@ -14,6 +16,8 @@ import java.util.logging.Logger;
         },
  * @author pierregauthier
  */
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@Embeddable
 public class Price implements Serializable {
     private static final Logger LOG = Logger.getLogger(Price.class.getName());
     

@@ -6,6 +6,12 @@ package tmf.org.dsmapi.catalog;
 
 import java.io.Serializable;
 import java.util.logging.Logger;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
  *{
@@ -25,6 +31,8 @@ import java.util.logging.Logger;
     }
  * @author pierregauthier
  */
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@Embeddable
 public class ProductOfferingPrice implements Serializable {
     
     private static final Logger LOG = Logger.getLogger(ProductOfferingPrice.class.getName());
@@ -32,12 +40,26 @@ public class ProductOfferingPrice implements Serializable {
     
     String name;
     
+    @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name = "startDateTime", column =
+                @Column(name = "validForStart")),
+        @AttributeOverride(name = "endDateTime", column =
+                @Column(name = "validForEnd"))
+    })
     TimeRange validFor;
     
     String priceType;
     
     String unitOfMeasure;
     
+    @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name = "amount", column =
+                @Column(name = "priceAmount")),
+        @AttributeOverride(name = "currency", column =
+                @Column(name = "priceCurrency"))
+    })
     Price price;
     
     String recurringChargePeriod;

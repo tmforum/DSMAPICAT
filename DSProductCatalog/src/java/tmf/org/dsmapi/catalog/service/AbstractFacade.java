@@ -7,10 +7,8 @@ package tmf.org.dsmapi.catalog.service;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -39,6 +37,13 @@ public abstract class AbstractFacade<T> {
         getEntityManager().persist(entity);
     }
 
+    public int create(List<T> entities) {
+        for (T entity : entities) {
+            this.create(entity);
+        }
+        return entities.size();
+    }
+
     public void edit(T entity) {
         getEntityManager().merge(entity);
     }
@@ -49,12 +54,6 @@ public abstract class AbstractFacade<T> {
 
     public T find(Object id) {
         return getEntityManager().find(entityClass, id);
-    }
-
-    public T find(Object id, Set<String> fieldNames) {
-        T fullEntity = find(id);
-        T viewEntity = getView(fullEntity, fieldNames);
-        return viewEntity;
     }
 
     public void detach(T entity) {
@@ -87,27 +86,6 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-
-    public List<T> findAllWithFields(Set<String> fieldNames) {
-        List<T> list = findAll();
-        return getViewList(list, fieldNames);
-    }
-
-    public List<T> findByCriteriaWithFields(MultivaluedMap<String, String> map, Set<String> fieldNames, Class<T> clazz) {
-        List<T> list = findByCriteria(map, clazz);
-        return getViewList(list, fieldNames);
-    }
-
-    private List<T> getViewList(List<T> list, Set<String> fieldNames) {
-        List<T> resultList = new ArrayList<T>(list.size());
-        for (T fullElement : list) {
-            T viewElement = getView(fullElement, fieldNames);
-            resultList.add(viewElement);
-        }
-        return resultList;
-    }
-
-    protected abstract T getView(T fullElement, Set<String> fieldNames);
 
     public List<T> findByCriteria(MultivaluedMap<String, String> map, Class<T> clazz) {
         List<T> resultsList = null;
