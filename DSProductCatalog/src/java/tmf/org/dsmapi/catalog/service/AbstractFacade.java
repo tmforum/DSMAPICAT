@@ -209,12 +209,37 @@ public abstract class AbstractFacade<T> {
         return nameValueList;
     }
 
-    private Predicate buildPredicateWithOperator(Path<T> tt, String name, String value) {
+    // safe Enum.valueOf without exception 
+    private Enum safeEnumValueOf(Class enumType, String name) {
+        Enum enumValue = null;
+        if (name != null) {
+            try {
+                enumValue = Enum.valueOf(enumType, name);
+            } catch (Exception e) {
+                enumValue = null;
+            }
+        }
+        return enumValue;
+    }
+
+    private Object convertStringValueToObject(Path<T> tt, String value) {
+        Class javaType = tt.getJavaType();
+        if (javaType.isEnum()) {
+            Enum enumValue = safeEnumValueOf(javaType, value);
+            return enumValue;
+        } else {
+            return value;
+        }
+    }
+
+    protected Predicate buildPredicateWithOperator(Path<T> tt, String name, String value) {
         CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
         Operator operator = Operator.fromString(name);
         // perform operation, default operation is equal
         if (operator == null) {
-            return criteriaBuilder.equal(tt.get(name), value);
+            Path<T> attribute = tt.get(name);
+            Object valueObject = convertStringValueToObject(attribute, value);
+            return criteriaBuilder.equal(attribute, valueObject);
         } else {
             switch (operator) {
                 case GT:
@@ -225,14 +250,21 @@ public abstract class AbstractFacade<T> {
                     return criteriaBuilder.lessThan((Expression) tt, value);
                 case LTE:
                     return criteriaBuilder.lessThanOrEqualTo((Expression) tt, value);
-                case NE:
-                    return criteriaBuilder.notEqual(tt, value);
-                case EQ:
-                    return criteriaBuilder.equal(tt, value);
+                case NE: {
+                    Object valueObject = convertStringValueToObject(tt, value);
+                    return criteriaBuilder.notEqual(tt, valueObject);
+                }
+                case EQ: {
+                    Object valueObject = convertStringValueToObject(tt, value);
+                    return criteriaBuilder.equal(tt, valueObject);
+                }
                 case EX:
                     return criteriaBuilder.like((Expression) tt, value.replace('*', '%'));
-                default:
-                    return criteriaBuilder.equal(tt.get(name), value);
+                default: {
+                    Path<T> attribute = tt.get(name);
+                    Object valueObject = convertStringValueToObject(attribute, value);
+                    return criteriaBuilder.equal(attribute, valueObject);
+                }
             }
         }
     }
