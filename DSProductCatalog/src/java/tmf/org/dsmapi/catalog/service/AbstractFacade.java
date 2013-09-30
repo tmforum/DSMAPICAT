@@ -4,9 +4,12 @@
  */
 package tmf.org.dsmapi.catalog.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.EntityManager;
@@ -18,6 +21,8 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.ws.rs.core.MultivaluedMap;
+import tmf.org.dsmapi.commons.exceptions.BadUsageException;
+import tmf.org.dsmapi.commons.exceptions.ExceptionType;
 
 /**
  *
@@ -26,6 +31,8 @@ import javax.ws.rs.core.MultivaluedMap;
 public abstract class AbstractFacade<T> {
 
     private Class<T> entityClass;
+    private static String pattern = "yyyy-MM-dd'T'HH:mm:ssZ";
+    private static SimpleDateFormat formatter = new SimpleDateFormat(pattern);
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
@@ -89,39 +96,45 @@ public abstract class AbstractFacade<T> {
 
     public List<T> findByCriteria(MultivaluedMap<String, String> map, Class<T> clazz) {
         List<T> resultsList = null;
-        CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<T> cq = criteriaBuilder.createQuery(clazz);
-        List<Predicate> andPredicates = new ArrayList<Predicate>();
-        Root<T> tt = cq.from(clazz);
-        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
-            List<String> valueList = entry.getValue();
-            Predicate predicate = null;
-            if (valueList.size() > 1) {
-                // name=value1&name=value2&...&name=valueN
-                // value of name is list [value1, value2, ..., valueN]
-                // => name=value1 OR name=value2 OR ... OR name=valueN
-                List<Predicate> orPredicates = new ArrayList<Predicate>();
-                for (String currentValue : valueList) {
-                    Predicate orPredicate = buildPredicate(tt, entry.getKey(), currentValue);
-                    orPredicates.add(orPredicate);
+        try {
+            CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
+            CriteriaQuery<T> cq = criteriaBuilder.createQuery(clazz);
+            List<Predicate> andPredicates = new ArrayList<Predicate>();
+            Root<T> tt = cq.from(clazz);
+            for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+                List<String> valueList = entry.getValue();
+                Predicate predicate = null;
+                if (valueList.size() > 1) {
+                    // name=value1&name=value2&...&name=valueN
+                    // value of name is list [value1, value2, ..., valueN]
+                    // => name=value1 OR name=value2 OR ... OR name=valueN
+                    List<Predicate> orPredicates = new ArrayList<Predicate>();
+                    for (String currentValue : valueList) {
+                        Predicate orPredicate = buildPredicate(tt, entry.getKey(), currentValue);
+                        orPredicates.add(orPredicate);
+                    }
+                    predicate = criteriaBuilder.or(orPredicates.toArray(new Predicate[orPredicates.size()]));
+                } else {
+                    // name=value
+                    // value of name is one element list [value]
+                    // => name=value
+                    predicate = buildPredicate(tt, entry.getKey(), valueList.get(0));
                 }
-                predicate = criteriaBuilder.or(orPredicates.toArray(new Predicate[orPredicates.size()]));
-            } else {
-                // name=value
-                // value of name is one element list [value]
-                // => name=value
-                predicate = buildPredicate(tt, entry.getKey(), valueList.get(0));
+                andPredicates.add(predicate);
             }
-            andPredicates.add(predicate);
+            cq.where(andPredicates.toArray(new Predicate[andPredicates.size()]));
+            cq.select(tt);
+            TypedQuery<T> q = getEntityManager().createQuery(cq);
+            resultsList = q.getResultList();
+            return resultsList;
+        } catch (IllegalArgumentException ex) {
+            return null;
+        } catch (BadUsageException ex) {
+            return null;
         }
-        cq.where(andPredicates.toArray(new Predicate[andPredicates.size()]));
-        cq.select(tt);
-        TypedQuery<T> q = getEntityManager().createQuery(cq);
-        resultsList = q.getResultList();
-        return resultsList;
     }
 
-    private Predicate buildPredicate(Path<T> tt, String name, String value) {
+    private Predicate buildPredicate(Path<T> tt, String name, String value) throws BadUsageException {
         Predicate predicate = null;
         int index = name.indexOf('.');
         if (index > 0 && index < name.length()) {
@@ -137,7 +150,7 @@ public abstract class AbstractFacade<T> {
         return predicate;
     }
 
-    private Predicate buildSimplePredicate(Path<T> tt, String name, String value) {
+    private Predicate buildSimplePredicate(Path<T> tt, String name, String value) throws BadUsageException {
         Predicate predicate;
         CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
         if (isMultipleOrValue(value)) {
@@ -201,7 +214,7 @@ public abstract class AbstractFacade<T> {
                 if (split.length == 2) {
                     String name = split[0];
                     String value = split[1];
-                    
+
                     nameValueList.add(new AbstractMap.SimpleEntry<String, String>(name, value));
                 }
             }
@@ -222,47 +235,85 @@ public abstract class AbstractFacade<T> {
         return enumValue;
     }
 
-    private Object convertStringValueToObject(Path<T> tt, String value) {
-        Class javaType = tt.getJavaType();
-        if (javaType.isEnum()) {
-            Enum enumValue = safeEnumValueOf(javaType, value);
-            return enumValue;
+    private Object convertStringValueToObject(String value, Class clazz) throws BadUsageException {
+        Object convertedValue = null;
+        if (clazz.isEnum()) {
+            convertedValue = safeEnumValueOf(clazz, value);
+        } else if (Date.class.isAssignableFrom(clazz)) {
+            try {
+                convertedValue = formatter.parse(value);
+            } catch (ParseException ex) {
+                convertedValue = null;
+            }
         } else {
-            return value;
+            convertedValue = value;
+        }
+        if (convertedValue != null){
+            return convertedValue;
+        } else {
+            throw new BadUsageException(ExceptionType.BAD_USAGE_FORMAT, "Wrong format for value " + value);
+        }
+
+    }
+
+    // operators = and <> are compatibles with all types
+    // operators < > <= >= are compatibles with numbers and dates
+    // operator "LIKE" is compatible with String
+    private boolean classCompatibleWithOperator(Class clazz, Operator operator) {
+        if (operator == null) {
+            return true;
+        } else {
+            switch (operator) {
+                case NE:
+                case EQ:
+                    return true;
+                case GT:
+                case GTE:
+                case LT:
+                case LTE:
+                    return (Date.class.isAssignableFrom(clazz)
+                            || (clazz.isPrimitive() && !clazz.equals(boolean.class))
+                            || Number.class.isAssignableFrom(clazz));
+                case EX:
+                    return String.class.equals(clazz);
+                default:
+                    return false;
+            }
         }
     }
 
-    protected Predicate buildPredicateWithOperator(Path<T> tt, String name, String value) {
+    protected Predicate buildPredicateWithOperator(Path<T> tt, String name, String value) throws BadUsageException {
         CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
         Operator operator = Operator.fromString(name);
         // perform operation, default operation is equal
         if (operator == null) {
             Path<T> attribute = tt.get(name);
-            Object valueObject = convertStringValueToObject(attribute, value);
+            Object valueObject = convertStringValueToObject(value, attribute.getJavaType());
             return criteriaBuilder.equal(attribute, valueObject);
         } else {
+            Class javaType = tt.getJavaType();
+            if (! classCompatibleWithOperator(javaType, operator)) {
+                throw new BadUsageException(ExceptionType.BAD_USAGE_OPERATOR, operator.getValue()+" operator incompatible with field");
+            }
+            Object valueObject = convertStringValueToObject(value, javaType);
             switch (operator) {
                 case GT:
-                    return criteriaBuilder.greaterThan((Expression) tt, value);
+                    return criteriaBuilder.greaterThan((Expression) tt, (Comparable) valueObject);
                 case GTE:
-                    return criteriaBuilder.greaterThanOrEqualTo((Expression) tt, value);
+                    return criteriaBuilder.greaterThanOrEqualTo((Expression) tt, (Comparable) valueObject);
                 case LT:
-                    return criteriaBuilder.lessThan((Expression) tt, value);
+                    return criteriaBuilder.lessThan((Expression) tt, (Comparable) valueObject);
                 case LTE:
-                    return criteriaBuilder.lessThanOrEqualTo((Expression) tt, value);
-                case NE: {
-                    Object valueObject = convertStringValueToObject(tt, value);
+                    return criteriaBuilder.lessThanOrEqualTo((Expression) tt, (Comparable) valueObject);
+                case NE:
                     return criteriaBuilder.notEqual(tt, valueObject);
-                }
-                case EQ: {
-                    Object valueObject = convertStringValueToObject(tt, value);
+                case EQ:
                     return criteriaBuilder.equal(tt, valueObject);
-                }
                 case EX:
                     return criteriaBuilder.like((Expression) tt, value.replace('*', '%'));
                 default: {
                     Path<T> attribute = tt.get(name);
-                    Object valueObject = convertStringValueToObject(attribute, value);
+                    valueObject = convertStringValueToObject(value, attribute.getJavaType());
                     return criteriaBuilder.equal(attribute, valueObject);
                 }
             }

@@ -18,55 +18,97 @@
   <con:entry key="id" value="1"/>
   <con:entry key="attributes" value="productCategories"/>
   <con:entry key="fields" value="name,productCategories"/>
-</con:parameters></con:request></con:method></con:resource><con:method name="GET - find" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element>html</con:element></con:representation><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>404 500</con:status><con:params/><con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="Request 1" mediaType="application/xml" accept="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="id" value="1" xmlns="http://eviware.com/soapui/config"/></con:parameters></con:request></con:method><con:method name="DELETE - remove" method="DELETE"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element>html</con:element></con:representation><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>404 500</con:status><con:params/><con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="Request 1" mediaType="application/xml" accept="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="id" value="151" xmlns="http://eviware.com/soapui/config"/></con:parameters></con:request></con:method></con:resource><con:resource name="" path=""><con:settings/><con:parameters><con:parameter><con:name>fields</con:name><con:value/><con:style>QUERY</con:style><con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type><con:default/><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter></con:parameters><con:method name="GET" method="GET"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>404 500</con:status><con:params/><con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element>Response</con:element></con:representation><con:request name="all" mediaType="application/xml"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters>
+</con:parameters></con:request></con:method></con:resource><con:method name="GET - find" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element>html</con:element></con:representation><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>404 500</con:status><con:params/><con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="Request 1" mediaType="application/xml" accept="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="id" value="36800" xmlns="http://eviware.com/soapui/config"/></con:parameters></con:request></con:method><con:method name="DELETE - remove" method="DELETE"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element>html</con:element></con:representation><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>404 500</con:status><con:params/><con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="Request 1" mediaType="application/xml" accept="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="id" value="151" xmlns="http://eviware.com/soapui/config"/></con:parameters></con:request></con:method><con:method name="PUT - edit" method="PUT"><con:settings/><con:parameters><con:parameter><con:name>id</con:name><con:value/><con:style>TEMPLATE</con:style><con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type><con:default/><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter></con:parameters><con:representation type="REQUEST"><con:mediaType>application/xml</con:mediaType><con:params/></con:representation><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>405 415 404</con:status><con:params/><con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:ns="http://localhost/DSProductCatalog/webresources/tmf.org.dsmapi.catalog.productoffering/369">ns:Response</con:element></con:representation><con:request name="Request 1" mediaType="application/json" postQueryString="false" accept="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request>      {
+      "name": "PO 1",
+      "description": "ProductOffering 1",
+      "isBundle": true,
+      "validFor":       {
+         "startDateTime": "2001-01-01T00:00:00.000+0000",
+         "endDateTime": "2002-01-01T00:00:00.000+0000"
+      },
+      "productCategories":       [
+                  {
+            "id": "id",
+            "name": "name",
+            "description": "desc"
+         },
+                  {
+            "id": "id",
+            "name": "name",
+            "description": "desc"
+         }
+      ],
+      "productSpecification":       {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      },
+      "productOfferingPrices": [      {
+         "name": "name",
+         "validFor":          {
+            "startDateTime": "2001-01-01T00:00:00.000+0000",
+            "endDateTime": "2002-01-01T00:00:00.000+0000"
+         },
+         "price":          {
+            "amount": "amount",
+            "currency": "currency"
+         },
+         "recurringChargePeriod": "period"
+      }],
+      "bundledProductOfferings": [      {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      }]
+   }
+</con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="id" value="1" xmlns="http://eviware.com/soapui/config"/></con:parameters></con:request></con:method></con:resource><con:resource name="" path=""><con:settings/><con:parameters><con:parameter><con:name>fields</con:name><con:value/><con:style>QUERY</con:style><con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type><con:default/><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter></con:parameters><con:method name="GET" method="GET"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>404 500</con:status><con:params/><con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element>Response</con:element></con:representation><con:request name="all" mediaType="application/xml"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters>
   <con:entry key="attributes" value="all"/>
-  <con:entry key="fields" value="id,name"/>
+  <con:entry key="fields" value="name,description"/>
 </con:parameters></con:request><con:request name="name,description" mediaType="application/xml"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters>
   <con:entry key="attributes" value="name,description"/>
   <con:entry key="fields" value="bundledProductOfferings"/>
-</con:parameters></con:request></con:method><con:method name="GET - findByCriteria" method="GET"><con:settings/><con:parameters><con:parameter><con:name>name</con:name><con:value/><con:style>QUERY</con:style><con:default/></con:parameter><con:parameter><con:name>description</con:name><con:value/><con:style>QUERY</con:style><con:default/></con:parameter><con:parameter><con:name>isBundle</con:name><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>validFor.endDateTime</con:name><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>productSpecification.name</con:name><con:style>QUERY</con:style></con:parameter><con:parameter required="false" disableUrlEncoding="false"><con:name>productCategories.description</con:name><con:value/><con:style>QUERY</con:style><con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type><con:default/><con:description xsi:nil="true"/></con:parameter><con:parameter><con:name>productCategories.name</con:name><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>id</con:name><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>productSpecification.description</con:name><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>productCategories.(name&amp;description)</con:name><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>productCategories</con:name><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>validFor</con:name><con:style>QUERY</con:style></con:parameter></con:parameters><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>404 500</con:status><con:params/><con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element>Response</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="all" mediaType="application/xml"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters>
-  <con:entry key="productSpecification.description" value="(name=x&amp;desc=y)"/>
+</con:parameters></con:request></con:method><con:method name="GET - findByCriteria" method="GET"><con:settings/><con:parameters><con:parameter><con:name>name</con:name><con:value/><con:style>QUERY</con:style><con:default/></con:parameter><con:parameter><con:name>description</con:name><con:value/><con:style>QUERY</con:style><con:default/></con:parameter><con:parameter><con:name>isBundle</con:name><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>validFor.endDateTime</con:name><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>productSpecification.name</con:name><con:style>QUERY</con:style></con:parameter><con:parameter required="false" disableUrlEncoding="false"><con:name>productCategories.description</con:name><con:value/><con:style>QUERY</con:style><con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type><con:default/><con:description xsi:nil="true"/></con:parameter><con:parameter><con:name>productCategories.name</con:name><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>id</con:name><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>productSpecification.description</con:name><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>productCategories.(name&amp;description)</con:name><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>productCategories</con:name><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>validFor</con:name><con:style>QUERY</con:style></con:parameter></con:parameters><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>404 500</con:status><con:params/><con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element>Response</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="FAULT"><con:mediaType>application/json</con:mediaType><con:status>400</con:status><con:params/><con:element xmlns:tmf="http://localhost/DSProductCatalog/webresources/tmf.org.dsmapi.catalog.productoffering">tmf:Fault</con:element></con:representation><con:request name="all" mediaType="application/xml"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters>
+  <con:entry key="description" value="(lte=*3)"/>
+  <con:entry key="validFor" value="(startDateTime.eq=2003-01-01T00:00:00+0000&amp;endDateTime.lte=2004-01-01T00:00:00+0000)"/>
   <con:entry key="attributes" value="all"/>
+  <con:entry key="fields" value="validFor,description"/>
 </con:parameters></con:request><con:request name="name,isBundle" mediaType="application/xml"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters>
   <con:entry key="id" value="201,202,203,204,205"/>
   <con:entry key="validFor" value="(endDateTime.gt=2011-01-01 01:00:00.000&amp;endDateTime.lt=2015-01-01 01:00:00.000)"/>
   <con:entry key="attributes" value="name,description"/>
   <con:entry key="fields" value="validFor.endDateTime"/>
-</con:parameters></con:request></con:method></con:resource><con:resource name="admin" path="admin"><con:settings/><con:parameters/><con:resource name="count" path="count"><con:settings/><con:parameters/><con:method name="GET - count" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>text/plain</con:mediaType><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="Request 1" mediaType="application/xml"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource><con:method name="POST - create list" method="POST"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>405 406</con:status><con:params/><con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/xml</con:mediaType><con:params/></con:representation><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>201</con:status><con:params/><con:element xmlns:adm="http://localhost/DSProductCatalog/webresources/tmf.org.dsmapi.catalog.productoffering/admin">adm:Response</con:element></con:representation><con:request name="Request 1" mediaType="application/json" postQueryString="false" accept="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request>[
+</con:parameters></con:request></con:method></con:resource><con:resource name="admin" path="admin"><con:settings/><con:parameters/><con:resource name="count" path="count"><con:settings/><con:parameters/><con:method name="GET - count" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>text/plain</con:mediaType><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:coun="http://localhost/DSProductCatalog/webresources/tmf.org.dsmapi.catalog.productoffering/admin/count">coun:Response</con:element></con:representation><con:request name="Request 1" mediaType="application/xml"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource><con:method name="POST - create list" method="POST"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>405 406</con:status><con:params/><con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/xml</con:mediaType><con:params/></con:representation><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>201</con:status><con:params/><con:element xmlns:adm="http://localhost/DSProductCatalog/webresources/tmf.org.dsmapi.catalog.productoffering/admin">adm:Response</con:element></con:representation><con:request name="Request 1" mediaType="application/json" postQueryString="false" accept="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request>[
       {
-      "id": null,
-      "name": "name1",
-      "description": "desc2",
-      "isBundle": false,
+      "name": "PO 1",
+      "description": "ProductOffering 1",
+      "isBundle": true,
       "validFor":       {
-         "startDateTime": "2010-01-01T00:00:00.000+0000",
-         "endDateTime": "2015-01-01T00:00:00.000+0000"
+         "startDateTime": "2001-01-01T00:00:00.000+0000",
+         "endDateTime": "2002-01-01T00:00:00.000+0000"
       },
       "productCategories":       [
                   {
-            "href": "href",
-            "name": "pcname1",
-            "description": "pcdesc1"
+            "id": "id",
+            "name": "name",
+            "description": "desc"
          },
                   {
-            "href": "href",
-            "name": "pcname2",
-            "description": "pcdesc2"
+            "id": "id",
+            "name": "name",
+            "description": "desc"
          }
       ],
       "productSpecification":       {
-         "href": "pshref",
-         "name": "psname",
-         "description": "psdesc"
+         "id": "id",
+         "name": "name",
+         "description": "desc"
       },
       "productOfferingPrices": [      {
-         "name": "popname",
+         "name": "name",
          "validFor":          {
-            "startDateTime": "2010-01-01T00:00:00.000+0000",
-            "endDateTime": "2015-01-01T00:00:00.000+0000"
+            "startDateTime": "2001-01-01T00:00:00.000+0000",
+            "endDateTime": "2002-01-01T00:00:00.000+0000"
          },
-         "priceType": "pricetype",
-         "unitOfMeasure": "unit",
          "price":          {
             "amount": "amount",
             "currency": "currency"
@@ -74,45 +116,42 @@
          "recurringChargePeriod": "period"
       }],
       "bundledProductOfferings": [      {
-         "href": "href",
-         "name": "bponame",
-         "description": "bpodesc"
+         "id": "id",
+         "name": "name",
+         "description": "desc"
       }]
    },
       {
-      "id": null,
-      "name": "name2",
-      "description": "desc2",
-      "isBundle": false,
+      "name": "PO 2",
+      "description": "ProductOffering 2",
+      "isBundle": true,
       "validFor":       {
-         "startDateTime": "2010-01-01T00:00:00.000+0000",
-         "endDateTime": "2015-01-01T00:00:00.000+0000"
+         "startDateTime": "2002-01-01T00:00:00.000+0000",
+         "endDateTime": "2003-01-01T00:00:00.000+0000"
       },
       "productCategories":       [
                   {
-            "href": "href",
-            "name": "pcname1",
-            "description": "pcdesc1"
+            "id": "id",
+            "name": "name",
+            "description": "desc"
          },
                   {
-            "href": "href",
-            "name": "pcname2",
-            "description": "pcdesc2"
+            "id": "id",
+            "name": "name",
+            "description": "desc"
          }
       ],
       "productSpecification":       {
-         "href": "pshref",
-         "name": "psname",
-         "description": "psdesc"
+         "id": "id",
+         "name": "name",
+         "description": "desc"
       },
       "productOfferingPrices": [      {
-         "name": "popname",
+         "name": "name",
          "validFor":          {
-            "startDateTime": "2010-01-01T00:00:00.000+0000",
-            "endDateTime": "2015-01-01T00:00:00.000+0000"
+            "startDateTime": "2002-01-01T00:00:00.000+0000",
+            "endDateTime": "2003-01-01T00:00:00.000+0000"
          },
-         "priceType": "pricetype",
-         "unitOfMeasure": "unit",
          "price":          {
             "amount": "amount",
             "currency": "currency"
@@ -120,104 +159,399 @@
          "recurringChargePeriod": "period"
       }],
       "bundledProductOfferings": [      {
-         "href": "href",
-         "name": "bponame",
-         "description": "bpodesc"
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      }]
+   },
+      {
+      "name": "PO 3",
+      "description": "ProductOffering 3",
+      "isBundle": true,
+      "validFor":       {
+         "startDateTime": "2003-01-01T00:00:00.000+0000",
+         "endDateTime": "2004-01-01T00:00:00.000+0000"
+      },
+      "productCategories":       [
+                  {
+            "id": "id",
+            "name": "name",
+            "description": "desc"
+         },
+                  {
+            "id": "id",
+            "name": "name",
+            "description": "desc"
+         }
+      ],
+      "productSpecification":       {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      },
+      "productOfferingPrices": [      {
+         "name": "name",
+         "validFor":          {
+            "startDateTime": "2003-01-01T00:00:00.000+0000",
+            "endDateTime": "2004-01-01T00:00:00.000+0000"
+         },
+         "price":          {
+            "amount": "amount",
+            "currency": "currency"
+         },
+         "recurringChargePeriod": "period"
+      }],
+      "bundledProductOfferings": [      {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      }]
+   },
+      {
+      "name": "PO 4",
+      "description": "ProductOffering 4",
+      "isBundle": true,
+      "validFor":       {
+         "startDateTime": "2004-01-01T00:00:00.000+0000",
+         "endDateTime": "2005-01-01T00:00:00.000+0000"
+      },
+      "productCategories":       [
+                  {
+            "id": "id",
+            "name": "name",
+            "description": "desc"
+         },
+                  {
+            "id": "id",
+            "name": "name",
+            "description": "desc"
+         }
+      ],
+      "productSpecification":       {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      },
+      "productOfferingPrices": [      {
+         "name": "name",
+         "validFor":          {
+            "startDateTime": "2004-01-01T00:00:00.000+0000",
+            "endDateTime": "2005-01-01T00:00:00.000+0000"
+         },
+         "price":          {
+            "amount": "amount",
+            "currency": "currency"
+         },
+         "recurringChargePeriod": "period"
+      }],
+      "bundledProductOfferings": [      {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      }]
+   },
+      {
+      "name": "PO 5",
+      "description": "ProductOffering 5",
+      "isBundle": true,
+      "validFor":       {
+         "startDateTime": "2005-01-01T00:00:00.000+0000",
+         "endDateTime": "2006-01-01T00:00:00.000+0000"
+      },
+      "productCategories":       [
+                  {
+            "id": "id",
+            "name": "name",
+            "description": "desc"
+         },
+                  {
+            "id": "id",
+            "name": "name",
+            "description": "desc"
+         }
+      ],
+      "productSpecification":       {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      },
+      "productOfferingPrices": [      {
+         "name": "name",
+         "validFor":          {
+            "startDateTime": "2005-01-01T00:00:00.000+0000",
+            "endDateTime": "2006-01-01T00:00:00.000+0000"
+         },
+         "price":          {
+            "amount": "amount",
+            "currency": "currency"
+         },
+         "recurringChargePeriod": "period"
+      }],
+      "bundledProductOfferings": [      {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      }]
+   },
+      {
+      "name": "PO 6",
+      "description": "ProductOffering 6",
+      "isBundle": true,
+      "validFor":       {
+         "startDateTime": "2006-01-01T00:00:00.000+0000",
+         "endDateTime": "2007-01-01T00:00:00.000+0000"
+      },
+      "productCategories":       [
+                  {
+            "id": "id",
+            "name": "name",
+            "description": "desc"
+         },
+                  {
+            "id": "id",
+            "name": "name",
+            "description": "desc"
+         }
+      ],
+      "productSpecification":       {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      },
+      "productOfferingPrices": [      {
+         "name": "name",
+         "validFor":          {
+            "startDateTime": "2006-01-01T00:00:00.000+0000",
+            "endDateTime": "2007-01-01T00:00:00.000+0000"
+         },
+         "price":          {
+            "amount": "amount",
+            "currency": "currency"
+         },
+         "recurringChargePeriod": "period"
+      }],
+      "bundledProductOfferings": [      {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      }]
+   },
+      {
+      "name": "PO 7",
+      "description": "ProductOffering 7",
+      "isBundle": true,
+      "validFor":       {
+         "startDateTime": "2007-01-01T00:00:00.000+0000",
+         "endDateTime": "2008-01-01T00:00:00.000+0000"
+      },
+      "productCategories":       [
+                  {
+            "id": "id",
+            "name": "name",
+            "description": "desc"
+         },
+                  {
+            "id": "id",
+            "name": "name",
+            "description": "desc"
+         }
+      ],
+      "productSpecification":       {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      },
+      "productOfferingPrices": [      {
+         "name": "name",
+         "validFor":          {
+            "startDateTime": "2007-01-01T00:00:00.000+0000",
+            "endDateTime": "2008-01-01T00:00:00.000+0000"
+         },
+         "price":          {
+            "amount": "amount",
+            "currency": "currency"
+         },
+         "recurringChargePeriod": "period"
+      }],
+      "bundledProductOfferings": [      {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      }]
+   },
+      {
+      "name": "PO 8",
+      "description": "ProductOffering 8",
+      "isBundle": true,
+      "validFor":       {
+         "startDateTime": "2008-01-01T00:00:00.000+0000",
+         "endDateTime": "2009-01-01T00:00:00.000+0000"
+      },
+      "productCategories":       [
+                  {
+            "id": "id",
+            "name": "name",
+            "description": "desc"
+         },
+                  {
+            "id": "id",
+            "name": "name",
+            "description": "desc"
+         }
+      ],
+      "productSpecification":       {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      },
+      "productOfferingPrices": [      {
+         "name": "name",
+         "validFor":          {
+            "startDateTime": "2008-01-01T00:00:00.000+0000",
+            "endDateTime": "2009-01-01T00:00:00.000+0000"
+         },
+         "price":          {
+            "amount": "amount",
+            "currency": "currency"
+         },
+         "recurringChargePeriod": "period"
+      }],
+      "bundledProductOfferings": [      {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      }]
+   },
+      {
+      "name": "PO 9",
+      "description": "ProductOffering 9",
+      "isBundle": true,
+      "validFor":       {
+         "startDateTime": "2009-01-01T00:00:00.000+0000",
+         "endDateTime": "2010-01-01T00:00:00.000+0000"
+      },
+      "productCategories":       [
+                  {
+            "id": "id",
+            "name": "name",
+            "description": "desc"
+         },
+                  {
+            "id": "id",
+            "name": "name",
+            "description": "desc"
+         }
+      ],
+      "productSpecification":       {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      },
+      "productOfferingPrices": [      {
+         "name": "name",
+         "validFor":          {
+            "startDateTime": "2009-01-01T00:00:00.000+0000",
+            "endDateTime": "2010-01-01T00:00:00.000+0000"
+         },
+         "price":          {
+            "amount": "amount",
+            "currency": "currency"
+         },
+         "recurringChargePeriod": "period"
+      }],
+      "bundledProductOfferings": [      {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      }]
+   },
+      {
+      "name": "PO 10",
+      "description": "ProductOffering 10",
+      "isBundle": true,
+      "validFor":       {
+         "startDateTime": "2010-01-01T00:00:00.000+0000",
+         "endDateTime": "2011-01-01T00:00:00.000+0000"
+      },
+      "productCategories":       [
+                  {
+            "id": "id",
+            "name": "name",
+            "description": "desc"
+         },
+                  {
+            "id": "id",
+            "name": "name",
+            "description": "desc"
+         }
+      ],
+      "productSpecification":       {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      },
+      "productOfferingPrices": [      {
+         "name": "name",
+         "validFor":          {
+            "startDateTime": "2010-01-01T00:00:00.000+0000",
+            "endDateTime": "2011-01-01T00:00:00.000+0000"
+         },
+         "price":          {
+            "amount": "amount",
+            "currency": "currency"
+         },
+         "recurringChargePeriod": "period"
+      }],
+      "bundledProductOfferings": [      {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
       }]
    }
-]</con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="" value="" xmlns="http://eviware.com/soapui/config"/></con:parameters></con:request></con:method></con:resource><con:method name="POST - create" method="POST"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>500 415</con:status><con:params/><con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/x-www-form-urlencoded</con:mediaType><con:params/></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:tmf="http://localhost/DSMAPICAT/webresources/tmf.org.dsmapi.catalog.productoffering">tmf:Response</con:element></con:representation><con:request name="200" mediaType="application/json" postQueryString="false" accept="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request>{
-   "id": "id",
-   "name": "name",
-   "description": "desc",
-   "isBundle": false,
-   "validFor":    {
-      "startDateTime": "2010-01-01",
-      "endDateTime": "2015-01-01"
-   },
-  "productCategories":    [
-            {
-         "description": "pcdesc1",
-         "href": "href",
-         "name": "pcname1"
-      },
-            {
-         "description": "pcdesc2",
-         "href": "href",
-         "name": "pcname2"
-      }
-   ],
-   "productSpecification":    {
-      "description": "psdesc",
-      "href": "pshref",
-      "name": "psname"
-   },
-   "productOfferingPrices": [   {
-      "name": "popname",
+]</con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="" value="" xmlns="http://eviware.com/soapui/config"/></con:parameters></con:request></con:method></con:resource><con:method name="POST - create" method="POST"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>500 415</con:status><con:params/><con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/x-www-form-urlencoded</con:mediaType><con:params/></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:tmf="http://localhost/DSMAPICAT/webresources/tmf.org.dsmapi.catalog.productoffering">tmf:Response</con:element></con:representation><con:request name="200" mediaType="application/json" postQueryString="false" accept="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request>      {
+      "name": "PO 1",
+      "description": "ProductOffering 1",
+      "isBundle": true,
       "validFor":       {
-         "startDateTime": "2010-01-01",
-         "endDateTime": "2015-01-01"
+         "startDateTime": "2001-01-01T00:00:00.000+0000",
+         "endDateTime": "2002-01-01T00:00:00.000+0000"
       },
-      "priceType": "pricetype",
-      "unitOfMeasure": "unit",
-      "price":       {
-         "amount": "amount",
-         "currency": "currency"
+      "productCategories":       [
+                  {
+            "id": "id",
+            "name": "name",
+            "description": "desc"
+         },
+                  {
+            "id": "id",
+            "name": "name",
+            "description": "desc"
+         }
+      ],
+      "productSpecification":       {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
       },
-      "recurringChargePeriod": "period"
-   }],
-   "bundledProductOfferings": [   {
-      "href": "href",
-      "name": "bponame",
-      "description": "bpodesc"
-   }]
-}</con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method><con:method name="GET - findAll" method="GET"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>500 415</con:status><con:params/><con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/x-www-form-urlencoded</con:mediaType><con:params/></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:tmf="http://localhost/DSMAPICAT/webresources/tmf.org.dsmapi.catalog.productoffering">tmf:Response</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="200" mediaType="application/json" postQueryString="false" accept="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method><con:method name="PUT - edit" method="PUT"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>500 415 404</con:status><con:params/><con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/x-www-form-urlencoded</con:mediaType><con:params/></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:tmf="http://localhost/DSMAPICAT/webresources/tmf.org.dsmapi.catalog.productoffering">tmf:Response</con:element></con:representation><con:request name="200" mediaType="application/json" postQueryString="false" accept="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request>{
-    "id": 1012,
-    "name": "name",
-    "description": "desc",
-    "isBundle": true,
-    "validFor": {
-        "startDateTime": "startDateTime",
-        "endDateTime": "endDateTime"
-    },
-    "productCategories": [{
-        "href": "href",
-        "name": "name",
-        "description": "desc"
-    }],
-    "productOfferingPrices": [{
-        "name": "name",
-        "validFor": {
-            "startDateTime": "startDateTime",
-            "endDateTime": "endDateTime"
-        },
-        "priceType": null,
-        "unitOfMeasure": null,
-        "price": {
+      "productOfferingPrices": [      {
+         "name": "name",
+         "validFor":          {
+            "startDateTime": "2001-01-01T00:00:00.000+0000",
+            "endDateTime": "2002-01-01T00:00:00.000+0000"
+         },
+         "price":          {
             "amount": "amount",
             "currency": "currency"
-        },
-        "recurringChargePeriod": "period"
-    }],
-    "bundledProductOfferings": [{
-        "href": "href",
-        "name": "name",
-        "description": "desc"
-    }],
-    "productOfferingPrice": [{
-        "name": "name",
-        "validFor": {
-            "startDateTime": "startDateTime",
-            "endDateTime": "endDateTime"
-        },
-        "priceType": null,
-        "unitOfMeasure": null,
-        "price": {
-            "amount": "amount",
-            "currency": "currency"
-        },
-        "recurringChargePeriod": "period"
-    }]
-}</con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method><con:method name="GET - findByCriteria" method="GET"><con:settings/><con:parameters><con:parameter><con:name>name</con:name><con:value/><con:style>QUERY</con:style><con:default/></con:parameter><con:parameter><con:name>description</con:name><con:value/><con:style>QUERY</con:style><con:default/></con:parameter><con:parameter><con:name>isBundle</con:name><con:value/><con:style>QUERY</con:style><con:default/></con:parameter><con:parameter><con:name>productCategories</con:name><con:value/><con:style>QUERY</con:style><con:default/></con:parameter></con:parameters><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element>Response</con:element></con:representation><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>500</con:status><con:params/><con:element>html</con:element></con:representation><con:request name="Request 1" mediaType="application/xml"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="isBundle" value="true" xmlns="http://eviware.com/soapui/config"/></con:parameters></con:request></con:method></con:resource><con:resource name="tmf.org.dsmapi.catalog.productcategory" path="tmf.org.dsmapi.catalog.productcategory"><con:settings/><con:parameters/><con:resource name="proto" path="proto"><con:settings/><con:parameters/><con:method name="GET - proto" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:prot="http://localhost/DSMAPICAT/webresources/tmf.org.dsmapi.catalog.productoffering/proto">prot:Response</con:element></con:representation><con:request name="Request 1" mediaType="application/xml"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource><con:resource name="{id}" path="{id}"><con:settings/><con:parameters><con:parameter><con:name>id</con:name><con:value/><con:style>TEMPLATE</con:style></con:parameter></con:parameters><con:resource name="{fields}" path="{fields}"><con:settings/><con:parameters><con:parameter><con:name>fields</con:name><con:value/><con:style>TEMPLATE</con:style><con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type><con:default/><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter></con:parameters><con:method name="Method 1" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:all="http://localhost/DSMAPICAT/webresources/tmf.org.dsmapi.catalog.productcategory/301/all">all:Response</con:element></con:representation><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>404</con:status><con:params/><con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element></con:representation><con:request name="all" mediaType="application/xml"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters>
+         },
+         "recurringChargePeriod": "period"
+      }],
+      "bundledProductOfferings": [      {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      }]
+   }
+</con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method><con:method name="GET - findAll" method="GET"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>500 415</con:status><con:params/><con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/x-www-form-urlencoded</con:mediaType><con:params/></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:tmf="http://localhost/DSMAPICAT/webresources/tmf.org.dsmapi.catalog.productoffering">tmf:Response</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="200" mediaType="application/json" postQueryString="false" accept="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method><con:method name="GET - findByCriteria" method="GET"><con:settings/><con:parameters><con:parameter><con:name>name</con:name><con:value/><con:style>QUERY</con:style><con:default/></con:parameter><con:parameter><con:name>description</con:name><con:value/><con:style>QUERY</con:style><con:default/></con:parameter><con:parameter><con:name>isBundle</con:name><con:value/><con:style>QUERY</con:style><con:default/></con:parameter><con:parameter><con:name>productCategories</con:name><con:value/><con:style>QUERY</con:style><con:default/></con:parameter></con:parameters><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element>Response</con:element></con:representation><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>500</con:status><con:params/><con:element>html</con:element></con:representation><con:request name="Request 1" mediaType="application/xml"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="isBundle" value="true" xmlns="http://eviware.com/soapui/config"/></con:parameters></con:request></con:method></con:resource><con:resource name="tmf.org.dsmapi.catalog.productcategory" path="tmf.org.dsmapi.catalog.productcategory"><con:settings/><con:parameters/><con:resource name="proto" path="proto"><con:settings/><con:parameters/><con:method name="GET - proto" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:prot="http://localhost/DSMAPICAT/webresources/tmf.org.dsmapi.catalog.productoffering/proto">prot:Response</con:element></con:representation><con:request name="Request 1" mediaType="application/xml"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource><con:resource name="{id}" path="{id}"><con:settings/><con:parameters><con:parameter><con:name>id</con:name><con:value/><con:style>TEMPLATE</con:style></con:parameter></con:parameters><con:resource name="{fields}" path="{fields}"><con:settings/><con:parameters><con:parameter><con:name>fields</con:name><con:value/><con:style>TEMPLATE</con:style><con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type><con:default/><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter></con:parameters><con:method name="Method 1" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:all="http://localhost/DSMAPICAT/webresources/tmf.org.dsmapi.catalog.productcategory/301/all">all:Response</con:element></con:representation><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>404</con:status><con:params/><con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element></con:representation><con:request name="all" mediaType="application/xml"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters>
   <con:entry key="id" value="1"/>
   <con:entry key="attributes" value="all"/>
   <con:entry key="{attributes}" value="all"/>

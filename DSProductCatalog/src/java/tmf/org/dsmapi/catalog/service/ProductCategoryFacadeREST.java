@@ -23,6 +23,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import org.codehaus.jackson.node.ObjectNode;
 import tmf.org.dsmapi.catalog.ProductCategory;
+import tmf.org.dsmapi.commons.exceptions.BadUsageException;
 
 /**
  *
@@ -72,7 +73,7 @@ public class ProductCategoryFacadeREST {
 
     @GET
     @Produces({"application/json"})
-    public Response findByCriteriaWithFields(@Context UriInfo info) {
+    public Response findByCriteriaWithFields(@Context UriInfo info) throws BadUsageException {
 
         // search criteria
         MultivaluedMap<String, String> criteria = info.getQueryParameters();
@@ -96,7 +97,7 @@ public class ProductCategoryFacadeREST {
         return response;
     }
 
-    private List<ProductCategory> findByCriteria(MultivaluedMap<String, String> criteria) {
+    private List<ProductCategory> findByCriteria(MultivaluedMap<String, String> criteria) throws BadUsageException {
         List<ProductCategory> resultList = null;
         if (criteria != null && !criteria.isEmpty()) {
             resultList = manager.findByCriteria(criteria, ProductCategory.class);

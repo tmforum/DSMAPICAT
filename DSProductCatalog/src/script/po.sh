@@ -5,16 +5,14 @@ set -e
 usage() {
 	nom=`basename $0`
 	echo "+"
-	echo "+ +  ${nom} [-c] Create TT with default file"
-	echo "+ +  ${nom} [-c -f file ] Create TT with specified file"
-	echo "+ +  ${nom} [-u] Partial update TT with default file"
-	echo "+ +  ${nom} [-u -f file ] Partial update TT with specified file"
-	echo "+ +  ${nom} [-p] Full update TT with default file"
-	echo "+ +  ${nom} [-p -f file ] Full update TT with specified file"
-    echo "+ +  ${nom} [-g] List all TT"
-    echo "+ +  ${nom} [-g -q \"query\"] List all TT with attribute selection and/or attribute filtering"
-    echo "+ +  ${nom} [-g -i id] Retrieve single TT"
-    echo "+ +  ${nom} [-g -i id -q \"query\"] Retrieve single TT with attribute selection"
+	echo "+ +  ${nom} [-c] Create element with default file"
+	echo "+ +  ${nom} [-c -f file ] Create element with specified file"
+	echo "+ +  ${nom} [-p] Full update element with default file"
+	echo "+ +  ${nom} [-p -f file ] Full update element with specified file"
+    echo "+ +  ${nom} [-g] List all elements"
+    echo "+ +  ${nom} [-g -q \"query\"] List all elements with attribute selection and/or attribute filtering"
+    echo "+ +  ${nom} [-g -i id] Retrieve single element"
+    echo "+ +  ${nom} [-g -i id -q \"query\"] Retrieve single element with attribute selection"
 	echo "+ +  ${nom} [-h] Help"   
     echo "+ +  query format: \"fields=x,y,...\"] attribute selection"
     echo "+ +  query format: \"key=value&...\"] attribute filtering"    
@@ -35,8 +33,6 @@ while getopts "cupgf:i:q:" option
 do
 	case $option in
 		c)  CREATE=OK
-            ;;
-        u)  PATCH=OK
             ;;
         p)  PUT=OK
             ;; 
@@ -60,7 +56,7 @@ if [ -n "$CREATE" ]; then
     if [ ! -n "$FILE" ]; then
         FILE=create.json
     fi
-    post "api/troubleTicket" $FILE
+    post "" $FILE
     exit 2
 fi
 
@@ -73,20 +69,7 @@ if [ -n "$PUT" ]; then
         echo "Please provide [-i id]" >&2
         exit 4
     fi    
-    put "api/troubleTicket/${ID}" $FILE
-    exit 2
-fi
-
-# PATCH
-if [ -n "$PATCH" ]; then
-    if [ ! -n "$ID" ]; then
-        echo "Please provide [-i id]" >&2
-        exit 4
-    fi
-    if [ ! -n "$FILE" ]; then
-        FILE=patch.json
-    fi
-    patch "api/troubleTicket/${ID}" $FILE
+    put "${ID}" $FILE
     exit 2
 fi
 
@@ -95,7 +78,7 @@ if [ -n "$GET" ]; then
     if [ -n "$QUERY" ]; then
         QUERY="?$QUERY"
     fi
-    get "api/troubleTicket/${ID}${QUERY}"
+    get "${ID}${QUERY}"
     exit 2
 fi
 

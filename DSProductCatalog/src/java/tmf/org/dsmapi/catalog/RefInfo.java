@@ -15,16 +15,16 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 @Embeddable
 public class RefInfo implements Serializable {
     
-    String href;
+    String id;
     String name;
     String description;
 
-    public String getHref() {
-        return href;
+    public String getId() {
+        return id;
     }
 
-    public void setHref(String href) {
-        this.href = href;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

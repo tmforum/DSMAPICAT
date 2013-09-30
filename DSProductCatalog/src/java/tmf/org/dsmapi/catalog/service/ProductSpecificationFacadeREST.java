@@ -27,6 +27,7 @@ import tmf.org.dsmapi.catalog.ProductSpecCharacteristic;
 import tmf.org.dsmapi.catalog.ProductSpecCharacteristicValue;
 import tmf.org.dsmapi.catalog.ProductSpecification;
 import tmf.org.dsmapi.catalog.TimeRange;
+import tmf.org.dsmapi.commons.exceptions.BadUsageException;
 
 /**
  *
@@ -76,7 +77,7 @@ public class ProductSpecificationFacadeREST {
 
     @GET
     @Produces({"application/json"})
-    public Response findByCriteriaWithFields(@Context UriInfo info) {
+    public Response findByCriteriaWithFields(@Context UriInfo info) throws BadUsageException {
 
         // search criteria
         MultivaluedMap<String, String> criteria = info.getQueryParameters();
@@ -100,7 +101,7 @@ public class ProductSpecificationFacadeREST {
         return response;
     }
 
-    private List<ProductSpecification> findByCriteria(MultivaluedMap<String, String> criteria) {
+    private List<ProductSpecification> findByCriteria(MultivaluedMap<String, String> criteria) throws BadUsageException {
         List<ProductSpecification> resultList = null;
         if (criteria != null && !criteria.isEmpty()) {
             resultList = manager.findByCriteria(criteria, ProductSpecification.class);

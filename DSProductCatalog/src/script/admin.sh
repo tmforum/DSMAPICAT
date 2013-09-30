@@ -5,11 +5,11 @@ set -e
 usage() {
 	nom=`basename $0`
 	echo "+"
-    echo "+ +  ${nom} [-n] Count TT"    
-	echo "+ +  ${nom} [-c] Create list of TT with default file"
-	echo "+ +  ${nom} [-c -f file ] Create list of TT with specified file"    
-    echo "+ +  ${nom} [-d] Delete all TT"
-    echo "+ +  ${nom} [-d -i id ] Delete single TT"    
+    echo "+ +  ${nom} [-n] Count"    
+	echo "+ +  ${nom} [-c] Create list with default file"
+	echo "+ +  ${nom} [-c -f file ] Create list with specified file"    
+    echo "+ +  ${nom} [-d] Delete all"
+    echo "+ +  ${nom} [-d -i id ] Delete single"    
 	echo "+ +  ${nom} [-h] Help"  
     echo "+ +  query format: \"fields=x,y,...\"] attribute selection"
     echo "+ +  query format: \"key=value&...\"] attribute filtering"    
@@ -51,23 +51,23 @@ if [ -n "$CREATE" ]; then
     if [ ! -n "$FILE" ]; then
         FILE=list-large.json
     fi
-    post "api/admin/troubleTicket" $FILE
+    post "admin" $FILE
     exit 2
 fi
 
 # DELETE
 if [ -n "$DELETE" ]; then
     if [ ! -n "$ID" ]; then
-        echo "WARN: Delete all TT ? ctrl+c to break" >&2
+        echo "WARN: Delete all ? ctrl+c to break" >&2
         wait
     fi
-    delete "api/admin/troubleTicket/${ID}"
+    delete "admin/${ID}"
     exit 2
 fi
 
 # COUNT
 if [ -n "$COUNT" ]; then
-    get "api/admin/troubleTicket/count"
+    get "admin/count"
     exit 2
 fi
 

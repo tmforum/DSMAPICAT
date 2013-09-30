@@ -4,6 +4,7 @@
  */
 package tmf.org.dsmapi.catalog.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -30,6 +31,7 @@ import tmf.org.dsmapi.catalog.ProductOffering;
 import tmf.org.dsmapi.catalog.ProductOfferingPrice;
 import tmf.org.dsmapi.catalog.Report;
 import tmf.org.dsmapi.catalog.TimeRange;
+import tmf.org.dsmapi.commons.exceptions.BadUsageException;
 
 /**
  *
@@ -55,31 +57,35 @@ public class ProductOfferingFacadeREST {
         return response;
     }
 
+
     @PUT
+    @Path("{id}")
     @Consumes({"application/json"})
-    public Response edit(ProductOffering entity) {
+    @Produces({"application/json"})
+    public Response edit(@PathParam("id") String id, ProductOffering entity) {
         Response response = null;
-        ProductOffering productOffering = manager.find(entity.getId());
-        if (productOffering != null) {
-            // 200
-            manager.edit(entity);
-            response = Response.ok(entity).build();
-        } else {
-            // 404 not found
-            response = Response.status(Response.Status.NOT_FOUND).build();
-        }
+            ProductOffering productOffering = manager.find(id);
+            if (productOffering != null) {
+                // 200
+                entity.setId(id);
+                manager.edit(entity);
+                response = Response.ok(entity).build();
+            } else {
+                // 404 not found
+                response = Response.status(Response.Status.NOT_FOUND).build();
+            }
         return response;
     }
 
     @GET
     @Produces({"application/json"})
-    public Response findByCriteriaWithFields(@Context UriInfo info) {
+    public Response findByCriteriaWithFields(@Context UriInfo info) throws BadUsageException {
 
         // search criteria
         MultivaluedMap<String, String> criteria = info.getQueryParameters();
         // fields to filter view
         Set<String> fieldSet = FacadeRestUtil.getFieldSet(criteria);
-
+        
         Set<ProductOffering> resultList = findByCriteria(criteria);
 
         Response response;
@@ -91,10 +97,20 @@ public class ProductOfferingFacadeREST {
             response = Response.ok(nodeList).build();
         }
         return response;
+/*
+        List<TroubleTicket> tickets;
+        if (queryParameters != null && !queryParameters.isEmpty()) {
+            tickets = findByCriteria(queryParameters, TroubleTicket.class);
+        } else {
+            tickets = this.findAll();
+        }
+        return tickets;
+*/
+
     }
 
     // return Set of unique elements to avoid List with same elements in case of join
-    private Set<ProductOffering> findByCriteria(MultivaluedMap<String, String> criteria) {
+    private Set<ProductOffering> findByCriteria(MultivaluedMap<String, String> criteria) throws BadUsageException {
         List<ProductOffering> resultList = null;
         if (criteria != null && !criteria.isEmpty()) {
             resultList = manager.findByCriteria(criteria, ProductOffering.class);
@@ -102,7 +118,7 @@ public class ProductOfferingFacadeREST {
             resultList = manager.findAll();
         }
         if (resultList == null) {
-            return null;
+            return new LinkedHashSet<ProductOffering>();
         } else {
             return new LinkedHashSet<ProductOffering>(resultList);
         }
@@ -134,16 +150,16 @@ public class ProductOfferingFacadeREST {
     }
 
     @DELETE
-    @Path("{id}")
+    @Path("admin/{id}")
     public void remove(@PathParam("id") String id) {
         manager.remove(manager.find(id));
     }
 
     @GET
     @Path("admin/count")
-    @Produces("text/plain")
-    public String countREST() {
-        return String.valueOf(manager.count());
+    @Produces({"application/json"})
+    public Report count() {
+        return new Report(manager.count());
     }
 
     @POST
@@ -151,8 +167,10 @@ public class ProductOfferingFacadeREST {
     @Consumes({"application/json"})
     @Produces({"application/json"})
     public Response createList(List<ProductOffering> entities) {
-        
-        if (entities==null) return Response.status(Response.Status.BAD_REQUEST.getStatusCode()).build(); 
+
+        if (entities == null) {
+            return Response.status(Response.Status.BAD_REQUEST.getStatusCode()).build();
+        }
 
         int previousRows = manager.count();
         int affectedRows;
@@ -176,7 +194,7 @@ public class ProductOfferingFacadeREST {
         int previousRows = manager.count();
         manager.removeAll();
         int currentRows = manager.count();
-        int affectedRows = previousRows-currentRows;
+        int affectedRows = previousRows - currentRows;
 
         Report stat = new Report(currentRows);
         stat.setAffectedRows(affectedRows);
@@ -188,51 +206,58 @@ public class ProductOfferingFacadeREST {
     @GET
     @Path("proto")
     @Produces({"application/json"})
-    public ProductOffering proto() {
-        ProductOffering po = new ProductOffering();
-        RefInfo[] bundledProductOffering = new RefInfo[1];
+    public List<ProductOffering> proto() {
+        List<ProductOffering> list = new ArrayList<ProductOffering>();
+        for (int i = 1; i <= 10; i++) {
 
-        RefInfo refInfo = new RefInfo();
-        refInfo.setDescription("desc");
-        refInfo.setHref("href");
-        refInfo.setName("name");
-        bundledProductOffering[0] = refInfo;
 
-        po.setBundledProductOfferings(Arrays.asList(bundledProductOffering));
-        po.setDescription("desc");
-        po.setId("id");
-        po.setIsBundle(Boolean.TRUE);
-        po.setName("name");
+            ProductOffering po = new ProductOffering();
+            RefInfo[] bundledProductOffering = new RefInfo[1];
 
-        RefInfo[] productCategory = new RefInfo[2];
-        productCategory[0] = refInfo;
-        productCategory[1] = refInfo;
+            RefInfo refInfo = new RefInfo();
+            refInfo.setDescription("desc");
+            refInfo.setId("href");
+            refInfo.setName("name");
+            bundledProductOffering[0] = refInfo;
 
-        TimeRange vf = new TimeRange();
-        vf.setEndDateTime(new Date());
-        vf.setStartDateTime(new Date());
+            po.setBundledProductOfferings(Arrays.asList(bundledProductOffering));
+            po.setDescription("ProductOffering " + i);
+            //po.setId("id");
+            po.setIsBundle(Boolean.TRUE);
+            po.setName("PO " + i);
 
-        po.setProductCategories(Arrays.asList(productCategory));
+            RefInfo[] productCategory = new RefInfo[2];
+            productCategory[0] = refInfo;
+            productCategory[1] = refInfo;
 
-        ProductOfferingPrice[] productOfferingPrices = new ProductOfferingPrice[1];
-        ProductOfferingPrice pop = new ProductOfferingPrice();
-        pop.setName("name");
-        Price price = new Price();
-        price.setAmount("amount");
-        price.setCurrency("currency");
+            TimeRange vf = new TimeRange();
+            vf.setEndDateTime(new Date(101 + i, 1, 1));
+            vf.setStartDateTime(new Date(100 + i, 1, 1));
 
-        pop.setPrice(price);
+            po.setProductCategories(Arrays.asList(productCategory));
 
-        pop.setRecurringChargePeriod("period");
-        pop.setUnitOfMeasure(null);
-        pop.setValidFor(vf);
+            ProductOfferingPrice[] productOfferingPrices = new ProductOfferingPrice[1];
+            ProductOfferingPrice pop = new ProductOfferingPrice();
+            pop.setName("name");
+            Price price = new Price();
+            price.setAmount("amount");
+            price.setCurrency("currency");
 
-        productOfferingPrices[0] = pop;
-        po.setProductOfferingPrices(Arrays.asList(productOfferingPrices));
+            pop.setPrice(price);
 
-        po.setProductSpecification(refInfo);
+            pop.setRecurringChargePeriod("period");
+            pop.setUnitOfMeasure(null);
+            pop.setValidFor(vf);
 
-        po.setValidFor(vf);
-        return po;
+            productOfferingPrices[0] = pop;
+            po.setProductOfferingPrices(Arrays.asList(productOfferingPrices));
+
+            po.setProductSpecification(refInfo);
+
+            po.setValidFor(vf);
+
+            list.add(po);
+        }
+        return list;
     }
 }

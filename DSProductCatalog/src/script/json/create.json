@@ -1,45 +1,43 @@
-{
-    "id": null,
-    "correlationId": null,
-    "description": "Description 1",
-    "severity": "Medium",
-    "type": "Bills, charges or payment",
-    "creationDate": "2013-08-20T18:18:40UTC",
-    "targetResolutionDate": null,
-    "status": "Submitted",
-    "subStatus": null,
-    "statusChangeReason": "Creation",
-    "resolutionDate": null,
-    "relatedObjects": [
-        {
-            "involvement": "involvment",
-            "reference": "referenceobject"
-        },
-        {
-            "involvement": "involvment",
-            "reference": "referenceobject"
-        }
-    ],
-    "notes": [
-        {
-            "date": "date",
-            "author": "author",
-            "text": "text"
-        },
-        {
-            "date": "date",
-            "author": "author",
-            "text": "text"
-        }
-    ],
-    "relatedParties": [
-        {
-            "role": "role",
-            "reference": "reference party"
-        },
-        {
-            "role": "role",
-            "reference": "reference party"
-        }
-    ]
-}
+      {
+      "name": "PO 1",
+      "description": "ProductOffering 1",
+      "isBundle": true,
+      "validFor":       {
+         "startDateTime": "2001-01-01T00:00:00.000+0000",
+         "endDateTime": "2002-01-01T00:00:00.000+0000"
+      },
+      "productCategories":       [
+                  {
+            "id": "id",
+            "name": "name",
+            "description": "desc"
+         },
+                  {
+            "id": "id",
+            "name": "name",
+            "description": "desc"
+         }
+      ],
+      "productSpecification":       {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      },
+      "productOfferingPrices": [      {
+         "name": "name",
+         "validFor":          {
+            "startDateTime": "2001-01-01T00:00:00.000+0000",
+            "endDateTime": "2002-01-01T00:00:00.000+0000"
+         },
+         "price":          {
+            "amount": "amount",
+            "currency": "currency"
+         },
+         "recurringChargePeriod": "period"
+      }],
+      "bundledProductOfferings": [      {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      }]
+   }

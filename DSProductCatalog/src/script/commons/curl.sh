@@ -9,9 +9,9 @@ PROTOCOL=http
 
 mkdir -p $LOG_HOME
 
-outfile="${LOG_HOME}/${CONTEXT}.out"
-logfile="${LOG_HOME}/${CONTEXT}.log"
-tmpfile=`mktemp -p ${LOG_HOME} ${CONTEXT}.out.XXXXXX`
+outfile="${LOG_HOME}/${LOG_FILE}.out"
+logfile="${LOG_HOME}/${LOG_FILE}.log"
+tmpfile=`mktemp -p ${LOG_HOME} ${LOG_FILE}.out.XXXXXX`
 
 CURL_OPTS="-v --write-out @commons/curl_template --insecure --user ${USER}:${PASSWORD} --header Content-Type:application/json --header Accept:application/${FORMAT}"
 URL_BASE="${PROTOCOL}://${HOST}:${PORT}/${CONTEXT}"

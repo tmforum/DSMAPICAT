@@ -83,8 +83,8 @@ public class ProductOffering implements Serializable {
                 @Column(name = "productSpecName")),
         @AttributeOverride(name = "description", column =
                 @Column(name = "productSpecDesc")),
-        @AttributeOverride(name = "href", column =
-                @Column(name = "productSpecHref"))
+        @AttributeOverride(name = "id", column =
+                @Column(name = "productSpecId"))
     })
     RefInfo productSpecification;
 
@@ -94,8 +94,8 @@ public class ProductOffering implements Serializable {
                 @Column(name = "slaSpecName")),
         @AttributeOverride(name = "description", column =
                 @Column(name = "slaSpecDesc")),
-        @AttributeOverride(name = "href", column =
-                @Column(name = "slaHref"))
+        @AttributeOverride(name = "id", column =
+                @Column(name = "slaId"))
     })
     private RefInfo sla;
 
