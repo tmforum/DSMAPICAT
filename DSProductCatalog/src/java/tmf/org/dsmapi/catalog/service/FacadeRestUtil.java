@@ -81,25 +81,38 @@ public class FacadeRestUtil {
                     break;
                 }
                 Set<String> nestedFieldNames = new HashSet<String>(entry.getValue());
-                // current node is an array
-                if (nestedBean.getClass().isArray()) {
-                    Object[] array = (Object[]) nestedBean;
+                // current node is an array or a list
+                if ((nestedBean.getClass().isArray()) || (Collection.class.isAssignableFrom(nestedBean.getClass()))) {
+                    Object[] array = null;
+                    if ((nestedBean.getClass().isArray())){
+                        array = (Object[]) nestedBean;
+                    }
+                    else {
+                        Collection collection = (Collection) nestedBean;
+                        array = collection.toArray();
+                    }
                     if (array.length > 0) {
                         // create a node for each element in array 
                         // and add created node in an arrayNode
                         Collection<JsonNode> nodes = new LinkedList<JsonNode>();
                         for (Object object : array) {
                             ObjectNode nestedNode = createNodeViewWithFields(mapper, object, nestedFieldNames);
-                            nodes.add(nestedNode);
+                            if (nestedNode != null && nestedNode.size() > 0) {
+                                nodes.add(nestedNode);
+                            }
                         }
                         ArrayNode arrayNode = mapper.createArrayNode();
                         arrayNode.addAll(nodes);
-                        rootNode.put(rootFieldName, arrayNode);
+                        if (arrayNode.size() > 0) {
+                            rootNode.put(rootFieldName, arrayNode);
+                        }
                     }
                 } else {
                     // create recursively a node and add it in current root node
                     ObjectNode nestedNode = createNodeViewWithFields(mapper, nestedBean, nestedFieldNames);
-                    rootNode.put(rootFieldName, nestedNode);
+                    if (nestedNode != null && nestedNode.size() > 0) {
+                        rootNode.put(rootFieldName, nestedNode);
+                    }
                 }
             }
         }

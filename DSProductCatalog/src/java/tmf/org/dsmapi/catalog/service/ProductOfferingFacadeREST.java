@@ -57,23 +57,22 @@ public class ProductOfferingFacadeREST {
         return response;
     }
 
-
     @PUT
     @Path("{id}")
     @Consumes({"application/json"})
     @Produces({"application/json"})
     public Response edit(@PathParam("id") String id, ProductOffering entity) {
         Response response = null;
-            ProductOffering productOffering = manager.find(id);
-            if (productOffering != null) {
-                // 200
-                entity.setId(id);
-                manager.edit(entity);
-                response = Response.ok(entity).build();
-            } else {
-                // 404 not found
-                response = Response.status(Response.Status.NOT_FOUND).build();
-            }
+        ProductOffering productOffering = manager.find(id);
+        if (productOffering != null) {
+            // 200
+            entity.setId(id);
+            manager.edit(entity);
+            response = Response.ok(entity).build();
+        } else {
+            // 404 not found
+            response = Response.status(Response.Status.NOT_FOUND).build();
+        }
         return response;
     }
 
@@ -85,7 +84,7 @@ public class ProductOfferingFacadeREST {
         MultivaluedMap<String, String> criteria = info.getQueryParameters();
         // fields to filter view
         Set<String> fieldSet = FacadeRestUtil.getFieldSet(criteria);
-        
+
         Set<ProductOffering> resultList = findByCriteria(criteria);
 
         Response response;
@@ -97,15 +96,15 @@ public class ProductOfferingFacadeREST {
             response = Response.ok(nodeList).build();
         }
         return response;
-/*
-        List<TroubleTicket> tickets;
-        if (queryParameters != null && !queryParameters.isEmpty()) {
-            tickets = findByCriteria(queryParameters, TroubleTicket.class);
-        } else {
-            tickets = this.findAll();
-        }
-        return tickets;
-*/
+        /*
+         List<TroubleTicket> tickets;
+         if (queryParameters != null && !queryParameters.isEmpty()) {
+         tickets = findByCriteria(queryParameters, TroubleTicket.class);
+         } else {
+         tickets = this.findAll();
+         }
+         return tickets;
+         */
 
     }
 
@@ -206,58 +205,52 @@ public class ProductOfferingFacadeREST {
     @GET
     @Path("proto")
     @Produces({"application/json"})
-    public List<ProductOffering> proto() {
-        List<ProductOffering> list = new ArrayList<ProductOffering>();
-        for (int i = 1; i <= 10; i++) {
+    public ProductOffering proto() {
+        ProductOffering po = new ProductOffering();
+        RefInfo[] bundledProductOffering = new RefInfo[1];
 
+        RefInfo refInfo = new RefInfo();
+        refInfo.setDescription("desc");
+        refInfo.setId("id");
+        refInfo.setName("name");
+        bundledProductOffering[0] = refInfo;
 
-            ProductOffering po = new ProductOffering();
-            RefInfo[] bundledProductOffering = new RefInfo[1];
+        po.setBundledProductOfferings(Arrays.asList(bundledProductOffering));
+        po.setDescription("ProductOffering");
+        po.setId("id");
+        po.setIsBundle(Boolean.TRUE);
+        po.setName("PO");
 
-            RefInfo refInfo = new RefInfo();
-            refInfo.setDescription("desc");
-            refInfo.setId("href");
-            refInfo.setName("name");
-            bundledProductOffering[0] = refInfo;
+        RefInfo[] productCategory = new RefInfo[2];
+        productCategory[0] = refInfo;
+        productCategory[1] = refInfo;
 
-            po.setBundledProductOfferings(Arrays.asList(bundledProductOffering));
-            po.setDescription("ProductOffering " + i);
-            //po.setId("id");
-            po.setIsBundle(Boolean.TRUE);
-            po.setName("PO " + i);
+        TimeRange vf = new TimeRange();
+        vf.setEndDateTime(new Date());
+        vf.setStartDateTime(new Date());
 
-            RefInfo[] productCategory = new RefInfo[2];
-            productCategory[0] = refInfo;
-            productCategory[1] = refInfo;
+        po.setProductCategories(Arrays.asList(productCategory));
 
-            TimeRange vf = new TimeRange();
-            vf.setEndDateTime(new Date(101 + i, 1, 1));
-            vf.setStartDateTime(new Date(100 + i, 1, 1));
+        ProductOfferingPrice[] productOfferingPrices = new ProductOfferingPrice[1];
+        ProductOfferingPrice pop = new ProductOfferingPrice();
+        pop.setName("name");
+        Price price = new Price();
+        price.setAmount("amount");
+        price.setCurrency("currency");
 
-            po.setProductCategories(Arrays.asList(productCategory));
+        pop.setPrice(price);
 
-            ProductOfferingPrice[] productOfferingPrices = new ProductOfferingPrice[1];
-            ProductOfferingPrice pop = new ProductOfferingPrice();
-            pop.setName("name");
-            Price price = new Price();
-            price.setAmount("amount");
-            price.setCurrency("currency");
+        pop.setRecurringChargePeriod("period");
+        pop.setUnitOfMeasure(null);
+        pop.setValidFor(vf);
 
-            pop.setPrice(price);
+        productOfferingPrices[0] = pop;
+        po.setProductOfferingPrices(Arrays.asList(productOfferingPrices));
 
-            pop.setRecurringChargePeriod("period");
-            pop.setUnitOfMeasure(null);
-            pop.setValidFor(vf);
+        po.setProductSpecification(refInfo);
 
-            productOfferingPrices[0] = pop;
-            po.setProductOfferingPrices(Arrays.asList(productOfferingPrices));
+        po.setValidFor(vf);
 
-            po.setProductSpecification(refInfo);
-
-            po.setValidFor(vf);
-
-            list.add(po);
-        }
-        return list;
+        return po;
     }
 }

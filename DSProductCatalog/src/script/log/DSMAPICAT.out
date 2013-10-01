@@ -572,3 +572,29 @@ Query: ReadAllQuery(referenceClass=ProductOffering sql=&quot;SELECT ID, DESCRIPT
    STATUS:200
    METHOD:GET
 
+
+   RESPONSE:
+{"previousRows":"21","currentRows":"0","affectedRows":"21"}
+   URL:http://localhost:8080/DSProductCatalog/webresources/tmf.org.dsmapi.catalog.productoffering/admin/
+   TIME:0,382
+   STATUS:200
+   METHOD:DELETE
+
+
+   RESPONSE:
+{"id":"51","name":"PO 1","description":"ProductOffering 1","isBundle":true,"validFor":{"startDateTime":"2001-01-01T00:00:00.000+0000","endDateTime":"2002-01-01T00:00:00.000+0000"},"productCategories":[{"id":"id","name":"name","description":"desc"},{"id":"id","name":"name","description":"desc"}],"productSpecification":{"id":"id","name":"name","description":"desc"},"productOfferingPrices":[{"name":"name","validFor":{"startDateTime":"2001-01-01T00:00:00.000+0000","endDateTime":"2002-01-01T00:00:00.000+0000"},"price":{"amount":"amount","currency":"currency"},"recurringChargePeriod":"period"}],"bundledProductOfferings":[{"id":"id","name":"name","description":"desc"}]}
+   URL:http://localhost:8080/DSProductCatalog/webresources/tmf.org.dsmapi.catalog.productoffering/
+   TIME:0,125
+   STATUS:200
+   METHOD:POST
+   INPUT FILE:json/create.json
+
+
+   RESPONSE:
+{"id":"101","name":"PO 1","description":"ProductOffering 1","isBundle":true,"validFor":{"startDateTime":"2001-01-01T00:00:00.000+0000","endDateTime":"2002-01-01T00:00:00.000+0000"},"productCategories":[{"id":"id","name":"name","description":"desc"},{"id":"id","name":"name","description":"desc"}],"productSpecification":{"id":"id","name":"name","description":"desc"},"productOfferingPrices":[{"name":"name","validFor":{"startDateTime":"2001-01-01T00:00:00.000+0000","endDateTime":"2002-01-01T00:00:00.000+0000"},"price":{"amount":"amount","currency":"currency"},"recurringChargePeriod":"period"}],"bundledProductOfferings":[{"id":"id","name":"name","description":"desc"}]}
+   URL:http://localhost:8080/DSProductCatalog/webresources/tmf.org.dsmapi.catalog.productoffering/
+   TIME:0,204
+   STATUS:200
+   METHOD:POST
+   INPUT FILE:json/create.json
+

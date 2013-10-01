@@ -1,0 +1,73 @@
+url?query
+
+query : (void)
+query : queryAttribute
+query : queryAttribute&query
+
+queryAttribute : attributeName=attributeValue
+
+attributeName : (litteral)
+attributeName : attributeName.subAttributeName
+
+subAttributeName : attributeName
+subAttributeName : operator
+
+attributeValue : (litteral)
+attributeValue : attributeValue,attributeValue
+attributeValue : (queryAttribute)
+attributeValue : (queryAttribute&queryAttribute)
+attributeValue : (operator=attributeValue)
+
+operator : eq, ne, lt, lte, gt, gte, ex
+
+
+
+?fields=all
+
+{
+   "id": "51",
+   "name": "PO 1",
+   "description": "ProductOffering 1",
+   "isBundle": true,
+   "validFor":    {
+      "startDateTime": "2001-01-01T00:00:00.000+0000",
+      "endDateTime": "2002-01-01T00:00:00.000+0000"
+   },
+   "productCategories":    [
+            {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      },
+            {
+         "id": "id",
+         "name": "name",
+         "description": "desc"
+      }
+   ],
+   "productSpecification":    {
+      "id": "id",
+      "name": "name",
+      "description": "desc"
+   },
+   "productOfferingPrices": [   {
+      "name": "name",
+      "validFor":       {
+         "startDateTime": "2001-01-01T00:00:00.000+0000",
+         "endDateTime": "2002-01-01T00:00:00.000+0000"
+      },
+      "price":       {
+         "amount": "amount",
+         "currency": "currency"
+      },
+      "recurringChargePeriod": "period"
+   }],
+   "bundledProductOfferings": [   {
+      "id": "id",
+      "name": "name",
+      "description": "desc"
+   }]
+}
+
+
+

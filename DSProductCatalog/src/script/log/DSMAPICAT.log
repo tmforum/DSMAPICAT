@@ -1,28 +1,33 @@
 * STATE: INIT => CONNECT handle 0x8001f150; line 1027 (connection #-5000) 
 * About to connect() to localhost port 8080 (#0)
 *   Trying 127.0.0.1...
-* Adding handle: conn: 0x80059350
+* Adding handle: conn: 0x80059790
 * Adding handle: send: 0
 * Adding handle: recv: 0
 * Curl_addHandleToPipeline: length: 1
 * 0x8001f150 is at send pipe head!
-* - Conn 0 (0x80059350) send_pipe: 1, recv_pipe: 0
+* - Conn 0 (0x80059790) send_pipe: 1, recv_pipe: 0
 * STATE: CONNECT => WAITCONNECT handle 0x8001f150; line 1074 (connection #0) 
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Connected to localhost (127.0.0.1) port 8080 (#0)
 * STATE: WAITCONNECT => DO handle 0x8001f150; line 1193 (connection #0) 
 * Server auth using Basic with user 'user'
-> GET /DSProductCatalog/webresources/tmf.org.dsmapi.catalog.productoffering/?fields=name&name.lte=PO+1 HTTP/1.1
+> POST /DSProductCatalog/webresources/tmf.org.dsmapi.catalog.productoffering/ HTTP/1.1
 > Authorization: Basic dXNlcjp1c2Vy
 > User-Agent: curl/7.32.0
 > Host: localhost:8080
 > Content-Type:application/json
 > Accept:application/json
+> Content-Length: 1126
+> Expect: 100-continue
 > 
 * STATE: DO => DO_DONE handle 0x8001f150; line 1279 (connection #0) 
 * STATE: DO_DONE => WAITPERFORM handle 0x8001f150; line 1400 (connection #0) 
 * STATE: WAITPERFORM => PERFORM handle 0x8001f150; line 1411 (connection #0) 
+* HTTP 1.1 or later with persistent connection, pipelining supported
+< HTTP/1.1 100 Continue
+} [data not shown]
 * HTTP 1.1 or later with persistent connection, pipelining supported
 < HTTP/1.1 200 OK
 < X-Powered-By: Servlet/3.0 JSP/2.2 (GlassFish Server Open Source Edition 3.1.2.2 Java/Sun Microsystems Inc./1.6)
@@ -30,10 +35,10 @@
 < Server: GlassFish Server Open Source Edition 3.1.2.2
 < Content-Type: application/json
 < Transfer-Encoding: chunked
-< Date: Mon, 30 Sep 2013 13:57:03 GMT
+< Date: Mon, 30 Sep 2013 15:12:07 GMT
 < 
 { [data not shown]
 * STATE: PERFORM => DONE handle 0x8001f150; line 1581 (connection #0) 
-100     2    0     2    0     0      4      0 --:--:-- --:--:-- --:--:--     4
+100  1798    0   672  100  1126   3295   5522 --:--:-- --:--:-- --:--:--  6220
 * Connection #0 to host localhost left intact
 * Expire cleared

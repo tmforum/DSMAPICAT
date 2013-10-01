@@ -4,6 +4,7 @@
  */
 package tmf.org.dsmapi.catalog.service;
 
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.AbstractMap;
@@ -12,6 +13,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -31,7 +34,7 @@ import tmf.org.dsmapi.commons.exceptions.ExceptionType;
 public abstract class AbstractFacade<T> {
 
     private Class<T> entityClass;
-    private static String pattern = "yyyy-MM-dd'T'HH:mm:ssZ";
+    private static final String pattern = "yyyy-MM-dd'T'HH:mm:ssZ";
     private static SimpleDateFormat formatter = new SimpleDateFormat(pattern);
 
     public AbstractFacade(Class<T> entityClass) {
@@ -127,9 +130,8 @@ public abstract class AbstractFacade<T> {
             TypedQuery<T> q = getEntityManager().createQuery(cq);
             resultsList = q.getResultList();
             return resultsList;
-        } catch (IllegalArgumentException ex) {
-            return null;
-        } catch (BadUsageException ex) {
+        } catch (Exception ex) {
+            Logger.getLogger(AbstractFacade.class.getName()).log(Level.INFO, "findByCriteria error, null result returned", ex);
             return null;
         }
     }
@@ -153,17 +155,7 @@ public abstract class AbstractFacade<T> {
     private Predicate buildSimplePredicate(Path<T> tt, String name, String value) throws BadUsageException {
         Predicate predicate;
         CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
-        if (isMultipleOrValue(value)) {
-            // name=value1,value2,...,valueN
-            // => name=value1 OR name=value2 OR ... OR name=valueN
-            List<String> valueList = convertMultipleOrValueToList(value);
-            List<Predicate> orPredicates = new ArrayList<Predicate>();
-            for (String currentValue : valueList) {
-                Predicate orPredicate = buildPredicateWithOperator(tt, name, currentValue);
-                orPredicates.add(orPredicate);
-            }
-            predicate = criteriaBuilder.or(orPredicates.toArray(new Predicate[orPredicates.size()]));
-        } else if (isMultipleAndValue(value)) {
+        if (isMultipleAndValue(value)) {
             // name=(subname1=value1&subname2=value2&...&subnameN=valueN) 
             // => name.subname1=value1 AND name.subname2=value2 AND ... AND name.subnameN=valueN
             List<Map.Entry<String, String>> subFieldNameValue = convertMultipleAndValue(value);
@@ -176,6 +168,16 @@ public abstract class AbstractFacade<T> {
                 andPredicates.add(andPredicate);
             }
             predicate = criteriaBuilder.and(andPredicates.toArray(new Predicate[andPredicates.size()]));
+        } else if (isMultipleOrValue(value)) {
+            // name=value1,value2,...,valueN
+            // => name=value1 OR name=value2 OR ... OR name=valueN
+            List<String> valueList = convertMultipleOrValueToList(value);
+            List<Predicate> orPredicates = new ArrayList<Predicate>();
+            for (String currentValue : valueList) {
+                Predicate orPredicate = buildPredicateWithOperator(tt, name, currentValue);
+                orPredicates.add(orPredicate);
+            }
+            predicate = criteriaBuilder.or(orPredicates.toArray(new Predicate[orPredicates.size()]));
         } else {
             // name=value
             predicate = buildPredicateWithOperator(tt, name, value);
@@ -245,6 +247,13 @@ public abstract class AbstractFacade<T> {
             } catch (ParseException ex) {
                 convertedValue = null;
             }
+        } else if ((clazz.isPrimitive() && !clazz.equals(boolean.class))
+                    || (Number.class.isAssignableFrom(clazz))){
+            try {
+                convertedValue = NumberFormat.getInstance().parse(value);
+            } catch (ParseException ex) {
+                convertedValue = null;
+            }
         } else {
             convertedValue = value;
         }
@@ -289,6 +298,7 @@ public abstract class AbstractFacade<T> {
         if (operator == null) {
             Path<T> attribute = tt.get(name);
             Object valueObject = convertStringValueToObject(value, attribute.getJavaType());
+            System.out.println("### bp RETURN "+name+"="+value);
             return criteriaBuilder.equal(attribute, valueObject);
         } else {
             Class javaType = tt.getJavaType();
