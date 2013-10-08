@@ -4,7 +4,7 @@
  */
 package tmf.org.dsmapi.catalog.service;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -23,7 +23,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
 import tmf.org.dsmapi.catalog.Price;
 import tmf.org.dsmapi.catalog.RefInfo;
@@ -32,17 +35,21 @@ import tmf.org.dsmapi.catalog.ProductOfferingPrice;
 import tmf.org.dsmapi.catalog.Report;
 import tmf.org.dsmapi.catalog.TimeRange;
 import tmf.org.dsmapi.commons.exceptions.BadUsageException;
+import tmf.org.dsmapi.commons.jaxrs.PATCH;
 
 /**
  *
  * @author pierregauthier
  */
 @Stateless
-@Path("tmf.org.dsmapi.catalog.productoffering")
+@Path("productOffering")
 public class ProductOfferingFacadeREST {
 
     @EJB
     ProductOfferingFacade manager;
+    @Context
+    UriInfo uriInfo;
+
 
     public ProductOfferingFacadeREST() {
     }
@@ -76,12 +83,36 @@ public class ProductOfferingFacadeREST {
         return response;
     }
 
+    @PATCH
+    @Path("{id}")
+    @Consumes({"application/json"})
+    @Produces({"application/json"})
+    public Response patch(@PathParam("id") String id, JsonNode root) throws IOException {
+
+        ObjectMapper mapper = new ObjectMapper();
+        ProductOffering partial = mapper.readValue(root, ProductOffering.class);
+        partial.setId(id);
+
+        ProductOffering full = manager.find(id);
+        if (full != null) {
+            FacadeRestUtil.partialUpdate(full, partial, root);
+        }
+
+        // 201 OK + location
+        UriBuilder uriBuilder = UriBuilder.fromUri(uriInfo.getRequestUri());
+        uriBuilder.path("{id}");
+        return Response.created(uriBuilder.build(id)).
+                entity(full).
+                build();
+
+
+    }
+
     @GET
     @Produces({"application/json"})
     public Response findByCriteriaWithFields(@Context UriInfo info) throws BadUsageException {
-
         // search criteria
-        MultivaluedMap<String, String> criteria = info.getQueryParameters();
+        MultivaluedMap<String, String> criteria = FacadeRestUtil.parseFields(info);
         // fields to filter view
         Set<String> fieldSet = FacadeRestUtil.getFieldSet(criteria);
 
@@ -96,16 +127,6 @@ public class ProductOfferingFacadeREST {
             response = Response.ok(nodeList).build();
         }
         return response;
-        /*
-         List<TroubleTicket> tickets;
-         if (queryParameters != null && !queryParameters.isEmpty()) {
-         tickets = findByCriteria(queryParameters, TroubleTicket.class);
-         } else {
-         tickets = this.findAll();
-         }
-         return tickets;
-         */
-
     }
 
     // return Set of unique elements to avoid List with same elements in case of join

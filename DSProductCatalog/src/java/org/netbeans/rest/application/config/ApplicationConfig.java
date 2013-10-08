@@ -13,7 +13,7 @@ import tmf.org.dsmapi.catalog.service.JacksonConfigurator;
  *
  * @author pierregauthier
  */
-@javax.ws.rs.ApplicationPath("webresources")
+@javax.ws.rs.ApplicationPath("api")
 public class ApplicationConfig extends Application {
 
     @Override

@@ -89,6 +89,13 @@ public abstract class AbstractFacade<T> {
         return q.getResultList();
     }
 
+    public void removeAll() {
+        List<T> all = findAll();
+        for (T entity : all) {
+            remove(entity);
+        }
+    }
+
     public int count() {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
@@ -248,7 +255,7 @@ public abstract class AbstractFacade<T> {
                 convertedValue = null;
             }
         } else if ((clazz.isPrimitive() && !clazz.equals(boolean.class))
-                    || (Number.class.isAssignableFrom(clazz))){
+                || (Number.class.isAssignableFrom(clazz))) {
             try {
                 convertedValue = NumberFormat.getInstance().parse(value);
             } catch (ParseException ex) {
@@ -257,7 +264,7 @@ public abstract class AbstractFacade<T> {
         } else {
             convertedValue = value;
         }
-        if (convertedValue != null){
+        if (convertedValue != null) {
             return convertedValue;
         } else {
             throw new BadUsageException(ExceptionType.BAD_USAGE_FORMAT, "Wrong format for value " + value);
@@ -298,12 +305,11 @@ public abstract class AbstractFacade<T> {
         if (operator == null) {
             Path<T> attribute = tt.get(name);
             Object valueObject = convertStringValueToObject(value, attribute.getJavaType());
-            System.out.println("### bp RETURN "+name+"="+value);
             return criteriaBuilder.equal(attribute, valueObject);
         } else {
             Class javaType = tt.getJavaType();
-            if (! classCompatibleWithOperator(javaType, operator)) {
-                throw new BadUsageException(ExceptionType.BAD_USAGE_OPERATOR, operator.getValue()+" operator incompatible with field");
+            if (!classCompatibleWithOperator(javaType, operator)) {
+                throw new BadUsageException(ExceptionType.BAD_USAGE_OPERATOR, operator.getValue() + " operator incompatible with field");
             }
             Object valueObject = convertStringValueToObject(value, javaType);
             switch (operator) {

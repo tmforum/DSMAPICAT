@@ -18,6 +18,7 @@ public class JacksonConfigurator implements ContextResolver<ObjectMapper> {
     
     public JacksonConfigurator() {
         mapper.configure(SerializationConfig.Feature.WRITE_DATES_AS_TIMESTAMPS, false);
+        mapper.configure(SerializationConfig.Feature.INDENT_OUTPUT, true);
     }
 
     @Override

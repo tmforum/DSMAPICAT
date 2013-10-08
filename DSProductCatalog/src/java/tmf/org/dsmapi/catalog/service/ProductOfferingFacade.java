@@ -4,7 +4,6 @@
  */
 package tmf.org.dsmapi.catalog.service;
 
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -34,14 +33,4 @@ public class ProductOfferingFacade extends AbstractFacade<ProductOffering> {
         super.create(entity);
     }
 
-    public void removeAll() {
-        //DELETE FROM PO_BUNDLED_PO_REF WHERE (PRODUCT_OFFERING_ID = ?)
-        //DELETE FROM PO_PRODUCT_CATEGORY_REF WHERE (PRODUCT_OFFERING_ID = ?)
-        //DELETE FROM PO_PRODUCT_OFFERING_PRICE WHERE (PRODUCT_OFFERING_ID = ?)
-        //DELETE FROM PRODUCTOFFERING WHERE (ID = ?)
-        List<ProductOffering> all = findAll();
-        for (ProductOffering productOffering : all) {
-            remove(productOffering);
-        }
-    }
 }

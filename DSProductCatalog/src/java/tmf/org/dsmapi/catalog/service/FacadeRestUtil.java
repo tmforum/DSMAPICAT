@@ -5,16 +5,23 @@
 package tmf.org.dsmapi.catalog.service;
 
 import com.sun.jersey.core.util.MultivaluedMapImpl;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.net.URI;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.UriInfo;
 import org.apache.commons.beanutils.PropertyUtilsBean;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -84,10 +91,9 @@ public class FacadeRestUtil {
                 // current node is an array or a list
                 if ((nestedBean.getClass().isArray()) || (Collection.class.isAssignableFrom(nestedBean.getClass()))) {
                     Object[] array = null;
-                    if ((nestedBean.getClass().isArray())){
+                    if ((nestedBean.getClass().isArray())) {
                         array = (Object[]) nestedBean;
-                    }
-                    else {
+                    } else {
                         Collection collection = (Collection) nestedBean;
                         array = collection.toArray();
                     }
@@ -162,6 +168,33 @@ public class FacadeRestUtil {
         }
     }
 
+    public static void setField(Object bean, String name, Object value) {
+        try {
+            pub.setNestedProperty(bean, name, value);
+        } catch (Exception ex) {
+        }
+    }
+
+    public static void partialUpdate(Object current, Object partial, JsonNode root) {
+        Iterator<String> it = root.getFieldNames();
+        while (it.hasNext()) {
+            String field = it.next();
+            JsonNode child = root.get(field);
+            Object partialValue = FacadeRestUtil.getField(partial, field);
+            if (child.isObject()) {
+                Object currentValue = FacadeRestUtil.getField(current, field);
+                if (currentValue != null) {
+                    partialUpdate(currentValue, partialValue, child);
+                    FacadeRestUtil.setField(current, field, currentValue);
+                } else {
+                    FacadeRestUtil.setField(current, field, partialValue);
+                }
+            } else {
+                FacadeRestUtil.setField(current, field, partialValue);
+            }
+        }
+    }
+
     public static Set<String> getFieldSet(MultivaluedMap<String, String> criteria) {
         Set<String> fieldSet = new HashSet<String>();
         if (criteria != null) {
@@ -178,5 +211,96 @@ public class FacadeRestUtil {
             }
         }
         return fieldSet;
+    }
+
+    public static MultivaluedMap<String, String> parseFields(UriInfo info) {
+        //return info.getQueryParameters();
+        MultivaluedMap<String, String> map = new MultivaluedMapImpl();
+        try {
+            URI requestUri = info.getRequestUri();
+            String rawQuery = requestUri.getRawQuery();
+            if (rawQuery == null || rawQuery.length() == 0) {
+                return map;
+            }
+            String query = URLDecoder.decode(rawQuery, "UTF-8");
+            if (query == null || query.length() == 0) {
+                return map;
+            }
+
+            StringBuffer attribute = new StringBuffer();
+            StringBuffer value = new StringBuffer();
+            boolean inAttr = true;
+            boolean inValue = false;
+            int brackets = 0;
+            for (int i = 0; i < query.length(); i++) {
+                char c = query.charAt(i);
+                switch (c) {
+                    case '&':
+                        if (brackets <= 0) {
+                            brackets = 0;
+                            if (attribute.length() > 0) {
+                                map.putSingle(attribute.toString(), value.toString());
+                            }
+                            attribute = new StringBuffer();
+                            value = new StringBuffer();
+                            inAttr = true;
+                            inValue = false;
+                        } else {
+                            if (inValue) {
+                                value.append(c);
+                            } else if (inAttr) {
+                                attribute.append(c);
+                            }
+                        }
+                        break;
+                    case '=':
+                        if (brackets <= 0) {
+                            brackets = 0;
+                            inValue = true;
+                            inAttr = false;
+                            value = new StringBuffer();
+                        } else {
+                            if (inValue) {
+                                value.append(c);
+                            } else if (inAttr) {
+                                attribute.append(c);
+                            }
+                        }
+                        break;
+                    case '(':
+                        if (inValue) {
+                            brackets++;
+                            value.append(c);
+                        } else if (inAttr) {
+                            attribute.append(c);
+                        }
+                        break;
+                    case ')':
+                        if (inValue) {
+                            brackets--;
+                            value.append(c);
+                        } else if (inAttr) {
+                            attribute.append(c);
+                        }
+                        break;
+
+                    default:
+                        if (inValue) {
+                            value.append(c);
+                        } else if (inAttr) {
+                            attribute.append(c);
+                        }
+                        break;
+                }
+            }
+            if (attribute.length() > 0) {
+                map.putSingle(attribute.toString(), value.toString());
+            }
+
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(FacadeRestUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return map;
+
     }
 }

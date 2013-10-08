@@ -598,3 +598,111 @@ Query: ReadAllQuery(referenceClass=ProductOffering sql=&quot;SELECT ID, DESCRIPT
    METHOD:POST
    INPUT FILE:json/create.json
 
+
+   RESPONSE:
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>GlassFish Server Open Source Edition 3.1.2.2 - Error report</title><style type="text/css"><!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A {color : black;}HR {color : #525D76;}--></style> </head><body><h1>HTTP Status 404 - Not Found</h1><hr/><p><b>type</b> Status report</p><p><b>message</b>Not Found</p><p><b>description</b>The requested resource (Not Found) is not available.</p><hr/><h3>GlassFish Server Open Source Edition 3.1.2.2</h3></body></html>
+   URL:http://localhost:8080/DSProductCatalog/api/productoffering/
+   TIME:0,030
+   STATUS:404
+   METHOD:GET
+
+
+   RESPONSE:
+[{"id":"51","name":"PO 1","description":"ProductOffering 1","isBundle":false,"validFor":{"startDateTime":"2011-01-01T00:00:00.000+0000","endDateTime":"2002-01-01T00:00:00.000+0000"},"productCategories":[{"id":"id","name":"name","description":"desc"},{"id":"id","name":"name","description":"desc"}],"productSpecification":{"id":"id","name":"name","description":"desc"},"productOfferingPrices":[{"name":"name","validFor":{"startDateTime":"2001-01-01T00:00:00.000+0000","endDateTime":"2002-01-01T00:00:00.000+0000"},"price":{"amount":"amount","currency":"currency"},"recurringChargePeriod":"period"}],"bundledProductOfferings":[{"id":"id","name":"name","description":"desc"}]}]
+   URL:http://localhost:8080/DSProductCatalog/api/productOffering/
+   TIME:0,144
+   STATUS:200
+   METHOD:GET
+
+
+   RESPONSE:
+[ {
+  "id" : "51",
+  "name" : "PO 1",
+  "description" : "ProductOffering 1",
+  "isBundle" : false,
+  "validFor" : {
+    "startDateTime" : "2011-01-01T00:00:00.000+0000",
+    "endDateTime" : "2002-01-01T00:00:00.000+0000"
+  },
+  "productCategories" : [ {
+    "id" : "id",
+    "name" : "name",
+    "description" : "desc"
+  }, {
+    "id" : "id",
+    "name" : "name",
+    "description" : "desc"
+  } ],
+  "productSpecification" : {
+    "id" : "id",
+    "name" : "name",
+    "description" : "desc"
+  },
+  "productOfferingPrices" : [ {
+    "name" : "name",
+    "validFor" : {
+      "startDateTime" : "2001-01-01T00:00:00.000+0000",
+      "endDateTime" : "2002-01-01T00:00:00.000+0000"
+    },
+    "price" : {
+      "amount" : "amount",
+      "currency" : "currency"
+    },
+    "recurringChargePeriod" : "period"
+  } ],
+  "bundledProductOfferings" : [ {
+    "id" : "id",
+    "name" : "name",
+    "description" : "desc"
+  } ]
+} ]
+   URL:http://localhost:8080/DSProductCatalog/api/productOffering/
+   TIME:0,376
+   STATUS:200
+   METHOD:GET
+
+
+   RESPONSE:
+[ {
+  "id" : "51",
+  "productOfferingPrices" : [ {
+    "name" : "name",
+    "validFor" : {
+      "startDateTime" : "2001-01-01T00:00:00.000+0000",
+      "endDateTime" : "2002-01-01T00:00:00.000+0000"
+    },
+    "price" : {
+      "amount" : "amount",
+      "currency" : "currency"
+    },
+    "recurringChargePeriod" : "period"
+  } ]
+} ]
+   URL:http://localhost:8080/DSProductCatalog/api/productOffering/?fields=productOfferingPrices&productOfferingPrices=(price.amount=amount&price.currency=currency)
+   TIME:0,031
+   STATUS:200
+   METHOD:GET
+
+
+   RESPONSE:
+[ {
+  "id" : "51",
+  "productOfferingPrices" : [ {
+    "name" : "name",
+    "validFor" : {
+      "startDateTime" : "2001-01-01T00:00:00.000+0000",
+      "endDateTime" : "2002-01-01T00:00:00.000+0000"
+    },
+    "price" : {
+      "amount" : "amount",
+      "currency" : "currency"
+    },
+    "recurringChargePeriod" : "period"
+  } ]
+} ]
+   URL:http://localhost:8080/DSProductCatalog/api/productOffering/?fields=productOfferingPrices&productOfferingPrices=%28price.amount%3Damount%26price.currency%3Dcurrency%29
+   TIME:0,035
+   STATUS:200
+   METHOD:GET
+

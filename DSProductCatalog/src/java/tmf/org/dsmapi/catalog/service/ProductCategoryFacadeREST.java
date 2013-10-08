@@ -4,7 +4,7 @@
  */
 package tmf.org.dsmapi.catalog.service;
 
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.EJB;
@@ -23,14 +23,14 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import org.codehaus.jackson.node.ObjectNode;
 import tmf.org.dsmapi.catalog.ProductCategory;
-import tmf.org.dsmapi.commons.exceptions.BadUsageException;
+import tmf.org.dsmapi.catalog.Report;
 
 /**
  *
  * @author pierregauthier
  */
 @Stateless
-@Path("tmf.org.dsmapi.catalog.productcategory")
+@Path("productcategory")
 public class ProductCategoryFacadeREST {
 
     @EJB
@@ -50,73 +50,69 @@ public class ProductCategoryFacadeREST {
     }
 
     @PUT
+    @Path("{id}")
     @Consumes({"application/json"})
-    public Response edit(ProductCategory entity) {
+    @Produces({"application/json"})
+    public Response edit(@PathParam("id") String id, ProductCategory entity) {
         Response response = null;
-        ProductCategory productCategory = manager.find(entity.getId());
+        ProductCategory productCategory = manager.find(id);
         if (productCategory != null) {
             // 200
+            entity.setId(id);
             manager.edit(entity);
             response = Response.ok(entity).build();
         } else {
             // 404 not found
-            response = Response.status(404).build();
+            response = Response.status(Response.Status.NOT_FOUND).build();
         }
         return response;
     }
 
-    @DELETE
-    @Path("{id}")
-    public void remove(@PathParam("id") String id) {
-        manager.remove(manager.find(id));
-    }
-
     @GET
     @Produces({"application/json"})
-    public Response findByCriteriaWithFields(@Context UriInfo info) throws BadUsageException {
-
+    public Response findByCriteriaWithFields(@Context UriInfo info) {
         // search criteria
-        MultivaluedMap<String, String> criteria = info.getQueryParameters();
+        MultivaluedMap<String, String> criteria = FacadeRestUtil.parseFields(info);
         // fields to filter view
         Set<String> fieldSet = FacadeRestUtil.getFieldSet(criteria);
 
-        List<ProductCategory> resultList = findByCriteria(criteria);
+        Set<ProductCategory> resultList = findByCriteria(criteria);
 
         Response response;
         if (fieldSet.isEmpty() || fieldSet.contains(FacadeRestUtil.ALL_FIELDS)) {
             response = Response.ok(resultList).build();
         } else {
             fieldSet.add(FacadeRestUtil.ID_FIELD);
-            List<ObjectNode> nodeList = new ArrayList<ObjectNode>();
-            for (ProductCategory productOffering : resultList) {
-                ObjectNode node = FacadeRestUtil.createNodeViewWithFields(productOffering, fieldSet);
-                nodeList.add(node);
-            }
+            List<ObjectNode> nodeList = FacadeRestUtil.createNodeListViewWithFields(resultList, fieldSet);
             response = Response.ok(nodeList).build();
         }
         return response;
     }
 
-    private List<ProductCategory> findByCriteria(MultivaluedMap<String, String> criteria) throws BadUsageException {
+    // return Set of unique elements to avoid List with same elements in case of join
+    private Set<ProductCategory> findByCriteria(MultivaluedMap<String, String> criteria) {
         List<ProductCategory> resultList = null;
         if (criteria != null && !criteria.isEmpty()) {
             resultList = manager.findByCriteria(criteria, ProductCategory.class);
         } else {
             resultList = manager.findAll();
         }
-        return resultList;
+        if (resultList == null) {
+            return new LinkedHashSet<ProductCategory>();
+        } else {
+            return new LinkedHashSet<ProductCategory>(resultList);
+        }
     }
 
     @GET
     @Path("{id}")
     @Produces({"application/json"})
-    public Response findWithFields(@PathParam("id") String id, @Context UriInfo info) {
+    public Response findById(@PathParam("id") String id, @Context UriInfo info) {
         // fields to filter view
         Set<String> fieldSet = FacadeRestUtil.getFieldSet(info.getQueryParameters());
 
         ProductCategory p = manager.find(id);
         Response response;
-        // if troubleTicket exists
         if (p != null) {
             // 200
             if (fieldSet.isEmpty() || fieldSet.contains(FacadeRestUtil.ALL_FIELDS)) {
@@ -133,11 +129,58 @@ public class ProductCategoryFacadeREST {
         return response;
     }
 
+    @DELETE
+    @Path("admin/{id}")
+    public void remove(@PathParam("id") String id) {
+        manager.remove(manager.find(id));
+    }
+
     @GET
-    @Path("count")
-    @Produces("text/plain")
-    public String countREST() {
-        return String.valueOf(manager.count());
+    @Path("admin/count")
+    @Produces({"application/json"})
+    public Report count() {
+        return new Report(manager.count());
+    }
+
+    @POST
+    @Path("admin")
+    @Consumes({"application/json"})
+    @Produces({"application/json"})
+    public Response createList(List<ProductCategory> entities) {
+
+        if (entities == null) {
+            return Response.status(Response.Status.BAD_REQUEST.getStatusCode()).build();
+        }
+
+        int previousRows = manager.count();
+        int affectedRows;
+
+        affectedRows = manager.create(entities);
+
+        Report stat = new Report(manager.count());
+        stat.setAffectedRows(affectedRows);
+        stat.setPreviousRows(previousRows);
+
+        // 201 OK
+        return Response.created(null).
+                entity(stat).
+                build();
+    }
+
+    @DELETE
+    @Path("admin")
+    public Report deleteAll() {
+
+        int previousRows = manager.count();
+        manager.removeAll();
+        int currentRows = manager.count();
+        int affectedRows = previousRows - currentRows;
+
+        Report stat = new Report(currentRows);
+        stat.setAffectedRows(affectedRows);
+        stat.setPreviousRows(previousRows);
+
+        return stat;
     }
 
     @GET

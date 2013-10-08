@@ -5,7 +5,6 @@
 package tmf.org.dsmapi.catalog;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;

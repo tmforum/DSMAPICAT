@@ -5,7 +5,7 @@ PASSWORD=user
 
 HOST=localhost
 PORT=8080
-CONTEXT=DSProductCatalog/webresources/tmf.org.dsmapi.catalog.productoffering
+CONTEXT=DSProductCatalog/api/productOffering
 
 LOG_FILE=DSMAPICAT
 LOG_HOME=log
