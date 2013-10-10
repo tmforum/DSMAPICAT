@@ -34,7 +34,7 @@ import tmf.org.dsmapi.catalog.TimeRange;
  * @author pierregauthier
  */
 @Stateless
-@Path("productspecification")
+@Path("productSpecification")
 public class ProductSpecificationFacadeREST {
 
     @EJB

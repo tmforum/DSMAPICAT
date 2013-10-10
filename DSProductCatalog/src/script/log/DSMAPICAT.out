@@ -706,3 +706,77 @@ Query: ReadAllQuery(referenceClass=ProductOffering sql=&quot;SELECT ID, DESCRIPT
    STATUS:200
    METHOD:GET
 
+
+   RESPONSE:
+{
+  "previousRows" : "0",
+  "currentRows" : "0",
+  "affectedRows" : "0"
+}
+   URL:http://localhost:8080/DSProductCatalog/api/productcategory/admin/
+   TIME:0,035
+   STATUS:200
+   METHOD:DELETE
+
+
+   RESPONSE:
+{
+  "previousRows" : "0",
+  "currentRows" : "0",
+  "affectedRows" : "0"
+}
+   URL:http://localhost:8080/DSProductCatalog/api/productcategory/admin/
+   TIME:0,028
+   STATUS:200
+   METHOD:DELETE
+
+
+   RESPONSE:
+{
+  "previousRows" : "0",
+  "currentRows" : "10",
+  "affectedRows" : "10"
+}
+   URL:http://localhost:8080/DSProductCatalog/api/productcategory/admin
+   TIME:0,056
+   STATUS:201
+   METHOD:POST
+   INPUT FILE:json/pc-list-large.json
+
+
+   RESPONSE:
+{
+  "previousRows" : "30",
+  "currentRows" : "40",
+  "affectedRows" : "10"
+}
+   URL:http://localhost:8080/DSProductCatalog/api/productspecification/admin
+   TIME:0,082
+   STATUS:201
+   METHOD:POST
+   INPUT FILE:json/ps-list-large.json
+
+
+   RESPONSE:
+{
+  "previousRows" : "10",
+  "currentRows" : "0",
+  "affectedRows" : "10"
+}
+   URL:http://localhost:8080/DSProductCatalog/api/productcategory/admin/
+   TIME:0,053
+   STATUS:200
+   METHOD:DELETE
+
+
+   RESPONSE:
+{
+  "previousRows" : "40",
+  "currentRows" : "0",
+  "affectedRows" : "40"
+}
+   URL:http://localhost:8080/DSProductCatalog/api/productspecification/admin/
+   TIME:0,228
+   STATUS:200
+   METHOD:DELETE
+

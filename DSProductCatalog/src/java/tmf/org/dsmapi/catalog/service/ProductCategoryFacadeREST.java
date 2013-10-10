@@ -30,7 +30,7 @@ import tmf.org.dsmapi.catalog.Report;
  * @author pierregauthier
  */
 @Stateless
-@Path("productcategory")
+@Path("productCategory")
 public class ProductCategoryFacadeREST {
 
     @EJB

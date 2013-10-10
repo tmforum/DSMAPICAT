@@ -39,6 +39,7 @@ public class ProductOfferingPrice implements Serializable {
     
     
     String name;
+    private String description;
     
     @Embedded
     @AttributeOverrides({
@@ -157,6 +158,20 @@ public class ProductOfferingPrice implements Serializable {
     @Override
     public String toString() {
         return "ProductOfferingPrice{" + "name=" + name + ", validFor=" + validFor + ", priceType=" + priceType + ", unitOfMeasure=" + unitOfMeasure + ", price=" + price + ", recurringChargePeriod=" + recurringChargePeriod + '}';
+    }
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
     
     
