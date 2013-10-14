@@ -6,6 +6,7 @@ package tmf.org.dsmapi.catalog;
 
 import java.io.Serializable;
 import java.util.logging.Logger;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
  *            "ProductSpecCharacteristicValue": [{
@@ -19,6 +20,7 @@ import java.util.logging.Logger;
 
  * @author pierregauthier
  */
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class ProductSpecCharacteristicValue implements Serializable{
     
     private static final Logger LOG = Logger.getLogger(ProductSpecCharacteristicValue.class.getName());

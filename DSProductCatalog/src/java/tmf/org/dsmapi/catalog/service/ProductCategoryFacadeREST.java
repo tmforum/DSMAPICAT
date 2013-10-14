@@ -43,7 +43,6 @@ public class ProductCategoryFacadeREST {
     @Consumes({"application/json"})
     @Produces({"application/json"})
     public Response create(ProductCategory entity) {
-        entity.setId(null);
         manager.create(entity);
         Response response = Response.ok(entity).build();
         return response;

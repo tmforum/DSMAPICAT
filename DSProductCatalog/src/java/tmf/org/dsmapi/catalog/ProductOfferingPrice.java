@@ -73,6 +73,15 @@ public class ProductOfferingPrice implements Serializable {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    
     public TimeRange getValidFor() {
         return validFor;
     }
@@ -160,19 +169,7 @@ public class ProductOfferingPrice implements Serializable {
         return "ProductOfferingPrice{" + "name=" + name + ", validFor=" + validFor + ", priceType=" + priceType + ", unitOfMeasure=" + unitOfMeasure + ", price=" + price + ", recurringChargePeriod=" + recurringChargePeriod + '}';
     }
 
-    /**
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
 
-    /**
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
     
     
     

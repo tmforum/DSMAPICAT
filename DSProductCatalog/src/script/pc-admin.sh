@@ -21,7 +21,7 @@ usage() {
 if [ $# -eq 1 -a "$1" = -h ]; then usage; exit 2; fi
 
 . commons/conf.sh
-CONTEXT=DSProductCatalog/api/productcategory
+CONTEXT=DSProductCatalog/api/productCategory
 . commons/curl.sh
 
 # OPTIONS

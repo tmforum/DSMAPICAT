@@ -47,7 +47,6 @@ public class ProductSpecificationFacadeREST {
     @Consumes({"application/json"})
     @Produces({"application/json"})
     public Response create(ProductSpecification entity) {
-        entity.setId(null);
         manager.create(entity);
         Response response = Response.ok(entity).build();
         return response;
