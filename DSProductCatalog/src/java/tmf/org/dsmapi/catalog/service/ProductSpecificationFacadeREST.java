@@ -11,7 +11,6 @@ import java.util.Set;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -26,7 +25,6 @@ import org.codehaus.jackson.node.ObjectNode;
 import tmf.org.dsmapi.catalog.ProductSpecCharacteristic;
 import tmf.org.dsmapi.catalog.ProductSpecCharacteristicValue;
 import tmf.org.dsmapi.catalog.ProductSpecification;
-import tmf.org.dsmapi.catalog.Report;
 import tmf.org.dsmapi.catalog.TimeRange;
 
 /**
@@ -93,7 +91,7 @@ public class ProductSpecificationFacadeREST {
     }
 
     // return Set of unique elements to avoid List with same elements in case of join
-    private Set<ProductSpecification> findByCriteria(MultivaluedMap<String, String> criteria)  {
+    private Set<ProductSpecification> findByCriteria(MultivaluedMap<String, String> criteria) {
         List<ProductSpecification> resultList = null;
         if (criteria != null && !criteria.isEmpty()) {
             resultList = manager.findByCriteria(criteria, ProductSpecification.class);
@@ -130,60 +128,6 @@ public class ProductSpecificationFacadeREST {
             response = Response.status(Response.Status.NOT_FOUND).build();
         }
         return response;
-    }
-
-    @DELETE
-    @Path("admin/{id}")
-    public void remove(@PathParam("id") String id) {
-        manager.remove(manager.find(id));
-    }
-
-    @GET
-    @Path("admin/count")
-    @Produces({"application/json"})
-    public Report count() {
-        return new Report(manager.count());
-    }
-
-    @POST
-    @Path("admin")
-    @Consumes({"application/json"})
-    @Produces({"application/json"})
-    public Response createList(List<ProductSpecification> entities) {
-
-        if (entities == null) {
-            return Response.status(Response.Status.BAD_REQUEST.getStatusCode()).build();
-        }
-
-        int previousRows = manager.count();
-        int affectedRows;
-
-        affectedRows = manager.create(entities);
-
-        Report stat = new Report(manager.count());
-        stat.setAffectedRows(affectedRows);
-        stat.setPreviousRows(previousRows);
-
-        // 201 OK
-        return Response.created(null).
-                entity(stat).
-                build();
-    }
-
-    @DELETE
-    @Path("admin")
-    public Report deleteAll() {
-
-        int previousRows = manager.count();
-        manager.removeAll();
-        int currentRows = manager.count();
-        int affectedRows = previousRows - currentRows;
-
-        Report stat = new Report(currentRows);
-        stat.setAffectedRows(affectedRows);
-        stat.setPreviousRows(previousRows);
-
-        return stat;
     }
 
     @GET
