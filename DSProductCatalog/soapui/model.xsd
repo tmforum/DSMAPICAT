@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="productCategory" type="productCategory"/>
+
+  <xs:element name="productOffering" type="productOffering"/>
+
+  <xs:element name="productSpecification" type="productSpecification"/>
+
+  <xs:element name="report" type="report"/>
+
+  <xs:complexType name="productOffering">
+    <xs:sequence>
+      <xs:element name="bundledProductOfferings" type="refInfo" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="description" type="xs:string" minOccurs="0"/>
+      <xs:element name="id" type="xs:string" minOccurs="0"/>
+      <xs:element name="isBundle" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="productCategories" type="refInfo" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="productOfferingPrices" type="productOfferingPrice" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="productSpecification" type="refInfo" minOccurs="0"/>
+      <xs:element name="sla" type="refInfo" minOccurs="0"/>
+      <xs:element name="validFor" type="timeRange" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="refInfo">
+    <xs:sequence>
+      <xs:element name="description" type="xs:string" minOccurs="0"/>
+      <xs:element name="id" type="xs:string" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="productOfferingPrice">
+    <xs:sequence>
+      <xs:element name="description" type="xs:string" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="price" type="price" minOccurs="0"/>
+      <xs:element name="priceType" type="xs:string" minOccurs="0"/>
+      <xs:element name="recurringChargePeriod" type="xs:string" minOccurs="0"/>
+      <xs:element name="unitOfMeasure" type="xs:string" minOccurs="0"/>
+      <xs:element name="validFor" type="timeRange" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="price">
+    <xs:sequence>
+      <xs:element name="amount" type="xs:string" minOccurs="0"/>
+      <xs:element name="currency" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="timeRange">
+    <xs:sequence>
+      <xs:element name="endDateTime" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="startDateTime" type="xs:dateTime" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="productSpecification">
+    <xs:sequence>
+      <xs:element name="brand" type="xs:string" minOccurs="0"/>
+      <xs:element name="description" type="xs:string" minOccurs="0"/>
+      <xs:element name="id" type="xs:string" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="productSpecCharacteristics" type="productSpecCharacteristic" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="validFor" type="timeRange" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="productSpecCharacteristic">
+    <xs:sequence>
+      <xs:element name="configurable" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="description" type="xs:string" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="productSpecCharacteristicValues" type="productSpecCharacteristicValue" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="valueType" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="productSpecCharacteristicValue">
+    <xs:sequence>
+      <xs:element name="defaultValue" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="unitOfMeasure" type="xs:string" minOccurs="0"/>
+      <xs:element name="value" type="xs:string" minOccurs="0"/>
+      <xs:element name="valueFrom" type="xs:string" minOccurs="0"/>
+      <xs:element name="valueTo" type="xs:string" minOccurs="0"/>
+      <xs:element name="valueType" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="report">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="productCategory">
+    <xs:sequence>
+      <xs:element name="description" type="xs:string" minOccurs="0"/>
+      <xs:element name="id" type="xs:string" minOccurs="0"/>
+      <xs:element name="isRoot" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="parentId" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
