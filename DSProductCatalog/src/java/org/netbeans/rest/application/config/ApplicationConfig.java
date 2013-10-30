@@ -26,13 +26,14 @@ public class ApplicationConfig extends Application {
      */
     private Set<Class<?>> getRestResourceClasses() {
         Set<Class<?>> resources = new java.util.HashSet<Class<?>>();
-        resources.add(tmf.org.dsmapi.catalog.service.ProductSpecificationFacadeREST.class);
+        resources.add(tmf.org.dsmapi.catalog.service.BadUsageExceptionMapper.class);
+        resources.add(tmf.org.dsmapi.catalog.service.JacksonConfigurator.class);
         resources.add(tmf.org.dsmapi.catalog.service.ProductCategoryFacadeREST.class);
         resources.add(tmf.org.dsmapi.catalog.service.ProductOfferingFacadeREST.class);
-        resources.add(BadUsageExceptionMapper.class);
-        resources.add(JacksonConfigurator.class);
+        resources.add(tmf.org.dsmapi.catalog.service.ProductSpecificationFacadeREST.class);
+        // following code can be used to customize Jersey 1.x JSON provider:
         try {
-            Class<?> jacksonProvider = Class.forName("org.codehaus.jackson.jaxrs.JacksonJsonProvider");
+            Class jacksonProvider = Class.forName("org.codehaus.jackson.jaxrs.JacksonJsonProvider");
             resources.add(jacksonProvider);
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(getClass().getName()).log(java.util.logging.Level.SEVERE, null, ex);

@@ -184,9 +184,9 @@ public class ProductCategoryFacadeREST {
     }
 
     @GET
-    @Path("proto")
+    @Path("mock")
     @Produces({"application/json"})
-    public ProductCategory proto() {
+    public ProductCategory mock() {
         ProductCategory pc = new ProductCategory();
         pc.setDescription("description");
         pc.setId("id");

@@ -3,9 +3,6 @@
 USER=user
 PASSWORD=user
 
-HOST=localhost
-PORT=8080
-CONTEXT=DSProductCatalog/api/productOffering
+URL_BASE=http://localhost:8080/DSProductCatalog/api
 
-LOG_FILE=DSMAPICAT
 LOG_HOME=log

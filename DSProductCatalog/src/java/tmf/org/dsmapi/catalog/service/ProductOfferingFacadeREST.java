@@ -77,7 +77,7 @@ public class ProductOfferingFacadeREST {
             manager.edit(entity);
             response = Response.ok(entity).build();
         } else {
-            // 404 not found
+            // 404 not founda
             response = Response.status(Response.Status.NOT_FOUND).build();
         }
         return response;
@@ -224,9 +224,9 @@ public class ProductOfferingFacadeREST {
     }
 
     @GET
-    @Path("proto")
+    @Path("mock")
     @Produces({"application/json"})
-    public ProductOffering proto() {
+    public ProductOffering mock() {
         ProductOffering po = new ProductOffering();
         RefInfo[] bundledProductOffering = new RefInfo[1];
 

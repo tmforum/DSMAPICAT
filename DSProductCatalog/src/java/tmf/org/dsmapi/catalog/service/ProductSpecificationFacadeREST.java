@@ -188,9 +188,9 @@ public class ProductSpecificationFacadeREST {
     }
 
     @GET
-    @Path("proto")
+    @Path("mock")
     @Produces({"application/json"})
-    public ProductSpecification proto() {
+    public ProductSpecification mock() {
         ProductSpecification ps = new ProductSpecification();
         ps.setId("id");
         ps.setBrand("brand");
