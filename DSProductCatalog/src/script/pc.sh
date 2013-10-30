@@ -18,8 +18,8 @@ usage() {
     echo "+ +  query format: \"fields=x,y,...\"] attribute selection"
     echo "+ +  query format: \"key=value&...\"] attribute filtering"    
     echo "+ +  query format: \"fields=x,y,...&key=value&...\"] attribute selection and/or filtering"  
-	echo "+"
-	}
+    echo "+"
+}
 
 # HELP
 if [ $# -eq 1 -a "$1" = -h ]; then usage; exit 2; fi

@@ -6,8 +6,6 @@ package org.netbeans.rest.application.config;
 
 import java.util.Set;
 import javax.ws.rs.core.Application;
-import tmf.org.dsmapi.catalog.service.BadUsageExceptionMapper;
-import tmf.org.dsmapi.catalog.service.JacksonConfigurator;
 
 /**
  *
@@ -26,6 +24,7 @@ public class ApplicationConfig extends Application {
      */
     private Set<Class<?>> getRestResourceClasses() {
         Set<Class<?>> resources = new java.util.HashSet<Class<?>>();
+        resources.add(tmf.org.dsmapi.catalog.service.AdminFacadeREST.class);
         resources.add(tmf.org.dsmapi.catalog.service.BadUsageExceptionMapper.class);
         resources.add(tmf.org.dsmapi.catalog.service.JacksonConfigurator.class);
         resources.add(tmf.org.dsmapi.catalog.service.ProductCategoryFacadeREST.class);

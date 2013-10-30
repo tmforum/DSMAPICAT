@@ -12,19 +12,19 @@
 		<url-pattern>/api/*</url-pattern>
 	</filter-mapping>      
 
-	<!--servlet>
-		<servlet-name>Jersey REST Service</servlet-name>
-		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
-		<init-param>
-			<param-name>com.sun.jersey.config.property.packages</param-name>
-			<param-value>com.felfelworld.demo.services</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
+<!--<servlet>
+    <servlet-name>RestServlet</servlet-name>
+    <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+
+    <init-param>
+        <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+        <param-value>true</param-value>
+    </init-param>
+</servlet>
 
 	<servlet-mapping>
 		<servlet-name>Jersey REST Service</servlet-name>
-		<url-pattern>/rest/</url-pattern>
+		<url-pattern>/api/</url-pattern>
 	</servlet-mapping-->
 
 
@@ -32,7 +32,26 @@
 	<!--security-constraint>
 		<web-resource-collection>
 			<web-resource-name>Secure REST</web-resource-name>
-			<url-pattern>/webresources/*</url-pattern>
+			<url-pattern>/api/*</url-pattern>
+			<http-method>GET</http-method>
+                        <http-method>POST</http-method>
+                        <http-method>PUT</http-method>
+                        <http-method>PATCH</http-method>
+                        <http-method>DELETE</http-method>
+		</web-resource-collection>
+
+		<auth-constraint>
+			<description>TMF ADMIN</description>
+			<role-name>ADMIN</role-name>
+		</auth-constraint>
+	</security-constraint>
+        
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Secure REST</web-resource-name>
+			<url-pattern>/api/productCategory/*</url-pattern>
+			<url-pattern>/api/productOffering/*</url-pattern>
+			<url-pattern>/api/productSpecification/*</url-pattern>
 			<http-method>GET</http-method>
                         <http-method>POST</http-method>
                         <http-method>PUT</http-method>
@@ -44,11 +63,11 @@
 			<description>TMF Users</description>
 			<role-name>USERS</role-name>
 		</auth-constraint>
-	</security-constraint>
+	</security-constraint>        
 
 	<login-config>
 		<auth-method>BASIC</auth-method>
-		<realm-name>file</realm-name>
+		<realm-name>fileRealm</realm-name>
 	</login-config>
 
 	<security-role>

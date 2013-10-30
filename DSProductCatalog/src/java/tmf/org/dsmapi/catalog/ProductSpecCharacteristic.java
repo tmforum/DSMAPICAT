@@ -6,6 +6,7 @@ package tmf.org.dsmapi.catalog;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
  *     "productSpecCharacteristics": [
@@ -27,6 +28,7 @@ import java.util.Arrays;
  *
  * @author pierregauthier
  */
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class ProductSpecCharacteristic implements Serializable {
     String name;
     
