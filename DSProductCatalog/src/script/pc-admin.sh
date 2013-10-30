@@ -2,18 +2,18 @@
 
 set -e
 
-RESOURCE=productCategory/admin
+RESOURCE=admin/productCategory
 
 usage() {
-	nom=`basename $0`
-	echo "+"
+    nom=`basename $0`
+    echo "+"
     echo "+ +  ${nom} [-n] count"
-	echo "+ +  ${nom} [-c file ] post list with specified file"    
+    echo "+ +  ${nom} [-c file ] post list with specified file"    
     echo "+ +  ${nom} [-d] delete all"
     echo "+ +  ${nom} [-d -i id ] delete single"    
-	echo "+ +  ${nom} [-h] Help"  
-	echo "+"
-	}
+    echo "+ +  ${nom} [-h] Help"  
+    echo "+"
+}
 
 # HELP
 if [ $# -eq 1 -a "$1" = -h ]; then usage; exit 2; fi
